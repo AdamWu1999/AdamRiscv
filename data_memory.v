@@ -20,6 +20,7 @@ always @(posedge clk) begin
         data[data_addr+2] <= w_data_mem[23:16];
         data[data_addr+3] <= w_data_mem[31:24];
     end
+    $display("WRITE DATA MEMORY: Addr %h = %h", data_addr, w_data_mem);
 end
 
 /*----------------Read DataMemory---------------------*/
@@ -36,6 +37,7 @@ always @(posedge clk) begin
     else begin
         r_data_mem <= 0;
     end
+    $display("READ DATA MEMORY: Addr %h = %h", data_addr, r_data_mem);
 end
    
 

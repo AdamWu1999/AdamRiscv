@@ -78,7 +78,9 @@ always @(posedge clk) begin
         ex_rs1          <= id_rs1;
         ex_rs2          <= id_rs2;
     end
+    $display("ex_regs_data1: %h",ex_regs_data1 );
+    $display("ex_regs_data2: %h",ex_regs_data2 );
+    $display("ex_imm: %h",ex_imm );
+    $display("ex_alu_op: %h",ex_alu_op );
 end
-
-
 endmodule

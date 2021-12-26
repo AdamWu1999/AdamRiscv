@@ -28,6 +28,7 @@ always @(posedge clk) begin
         wb_mem2reg     <= me_mem2reg;     
         wb_regs_write  <= me_regs_write;   
     end
+
 end
 
 endmodule

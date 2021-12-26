@@ -15,7 +15,7 @@ always @(posedge clk) begin
         pc_o    <= 0;
     end
     else begin
-        $display("PC now: %h", pc);
+        $display("PC_O = PC_now: %h", pc_o);
         pc_o <= pc_now;
     end
 end
@@ -25,9 +25,11 @@ always @(posedge clk) begin
         pc_now  <= 4;
     end
     else if (br_ctrl) begin
+        $display("PC_now = BR_addr: %h", pc_now);
         pc_now <= br_addr;
     end
     else if (pc_stall) begin
+        $display("PC_now = stall: %h", pc_now);
         pc_now <= pc_now;
     end
     else begin

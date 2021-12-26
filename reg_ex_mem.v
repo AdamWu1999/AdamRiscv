@@ -43,6 +43,9 @@ always @(posedge clk) begin
         me_regs_write  <= ex_regs_write;
         me_rs2         <= ex_rs2;    
     end
+
+    $display("me_alu_o: %h",me_alu_o);
+
 end
 
 endmodule
