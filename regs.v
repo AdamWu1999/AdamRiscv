@@ -21,7 +21,7 @@ always @(posedge clk) begin
     if (!rst)begin
         regs_file[0] <= 0;
     end
-    else if (w_regs_en) begin
+    else if (w_regs_en && w_regs_addr != 5'b0) begin //forbit write x0
         $display("WRITE REGISTER FILE: x%d = %h", w_regs_addr, w_regs_data);
         regs_file[w_regs_addr] <= w_regs_data;
     end
