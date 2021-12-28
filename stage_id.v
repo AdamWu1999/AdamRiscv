@@ -17,7 +17,9 @@ module stage_id(
     output  wire       id_mem2reg,
     output  wire[2:0]  id_alu_op,
     output  wire       id_mem_write,
-    output  wire       id_alu_src,
+    output  wire[1:0]  id_alu_src1,
+    output  wire[1:0]  id_alu_src2,
+    output  wire       id_br_addr_mode,
     output  wire       id_regs_write,
     //forwarding
     output  wire[4:0]  id_rs1,
@@ -25,13 +27,15 @@ module stage_id(
 
 );
 
-wire        br        ;
-wire        mem_read  ;
-wire        mem2reg   ;
-wire[2:0]   alu_op    ;
-wire        mem_write ;
-wire        alu_src   ;
-wire        regs_write;
+wire        br          ;
+wire        mem_read    ;
+wire        mem2reg     ;
+wire[2:0]   alu_op      ;
+wire        mem_write   ;
+wire[1:0]   alu_src1    ;
+wire[1:0]   alu_src2    ;
+wire        br_addr_mode;
+wire        regs_write  ;
 
 
 regs u_regs(
@@ -47,14 +51,16 @@ regs u_regs(
 );
 
 ctrl u_ctrl(
-    .inst_op    (id_inst[6:2] ),
-    .br         (br           ),
-    .mem_read   (mem_read     ),
-    .mem2reg    (mem2reg      ),
-    .alu_op     (alu_op       ),
-    .mem_write  (mem_write    ),
-    .alu_src    (alu_src      ),
-    .regs_write (regs_write   )
+    .inst_op        (id_inst[6:0] ),
+    .br             (br           ),
+    .mem_read       (mem_read     ),
+    .mem2reg        (mem2reg      ),
+    .alu_op         (alu_op       ),
+    .mem_write      (mem_write    ),
+    .alu_src1       (alu_src1     ),
+    .alu_src2       (alu_src2     ),
+    .br_addr_mode   (br_addr_mode ),
+    .regs_write     (regs_write   )
 );
 
 imm_gen u_imm_gen(
@@ -70,13 +76,15 @@ assign id_rs1 = id_inst[19:15];
 assign id_rs2 = id_inst[24:20];
 
 //stall
-assign id_br         = ctrl_stall ? 0 : br         ;
-assign id_mem_read   = ctrl_stall ? 0 : mem_read   ;       
-assign id_mem2reg    = ctrl_stall ? 0 : mem2reg    ;      
-assign id_alu_op     = ctrl_stall ? 0 : alu_op     ;     
-assign id_mem_write  = ctrl_stall ? 0 : mem_write  ;            
-assign id_alu_src    = ctrl_stall ? 0 : alu_src    ;      
-assign id_regs_write = ctrl_stall ? 0 : regs_write ;             
+assign id_br           = (ctrl_stall == 1) ? 0 : br             ;
+assign id_mem_read     = (ctrl_stall == 1) ? 0 : mem_read       ;       
+assign id_mem2reg      = (ctrl_stall == 1) ? 0 : mem2reg        ;      
+assign id_alu_op       = (ctrl_stall == 1) ? 0 : alu_op         ;     
+assign id_mem_write    = (ctrl_stall == 1) ? 0 : mem_write      ;            
+assign id_alu_src1     = (ctrl_stall == 1) ? 0 : alu_src1       ;
+assign id_alu_src2     = (ctrl_stall == 1) ? 0 : alu_src2       ; 
+assign id_br_addr_mode = (ctrl_stall == 1) ? 0 : br_addr_mode   ;       
+assign id_regs_write   = (ctrl_stall == 1) ? 0 : regs_write     ;             
 
 
 

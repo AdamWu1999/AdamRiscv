@@ -8,32 +8,43 @@ module pc(
     input  wire         pc_stall
     );
 
-reg [31:0] pc_now;
+reg [31:0] pc_next;
 
 always @(posedge clk) begin
     if (!rst)begin
         pc_o    <= 0;
     end
+    else if (br_ctrl) begin
+        pc_o <= br_addr;
+        $display("-----------------------");
+        $display("PC_o = BR_addr: %h", pc_o);
+    end
+    else if (pc_stall) begin
+        pc_o <= pc_o;
+        $display("-----------------------");
+        $display("PC_o = stall: %h", pc_o);
+    end
     else begin
-        $display("PC_O = PC_now: %h", pc_o);
-        pc_o <= pc_now;
+        pc_o <= pc_next;
+        $display("-----------------------");
+        $display("PC_O = PC_next: %h", pc_o);
     end
 end
 
 always @(posedge clk) begin
     if (!rst)begin
-        pc_now  <= 4;
+        pc_next  <= 4;
     end
     else if (br_ctrl) begin
-        $display("PC_now = BR_addr: %h", pc_now);
-        pc_now <= br_addr;
+        pc_next <= br_addr + 4;
+        //$display("PC_next = BR_addr: %h", pc_next);
     end
     else if (pc_stall) begin
-        $display("PC_now = stall: %h", pc_now);
-        pc_now <= pc_now;
+        pc_next <= pc_next;
+        $strobe("PC_next = stall: %h", pc_next);
     end
     else begin
-        pc_now <= pc_now + 4;
+        pc_next <= pc_next + 4;
     end
 end
 

@@ -13,9 +13,9 @@ adam_riscv u_adam_riscv(
 );
 initial begin
     $display ($time, "<<Starting simulation>>");
-    clk = 1'b0;
+    clk = 1'b1;
     rst = 1'b0;
-    #50 rst = 1'b1;
+    #100 rst = 1'b1;
 end
 
 endmodule

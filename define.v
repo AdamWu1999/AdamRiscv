@@ -1,13 +1,13 @@
 //-------------------inst_type-------------------
-`define ItypeL 5'b00000 //Itype for Load
-`define ItypeA 5'b00100 //Itype for ALU
-`define ItypeJ 5'b11001 //Itype for Jalr
-`define Rtype  5'b01100
-`define Btype  5'b11001
-`define Stype  5'b01000
-`define UtypeL 5'b01101 //Utype for lui
-`define UtypeU 5'b01101 //Utype for auipc
-`define Jtype  5'b11011 //Utype for jal
+`define ItypeL 7'b0000011 //Itype for Load
+`define ItypeA 7'b0010011 //Itype for ALU
+`define ItypeJ 7'b1100111 //Itype for Jalr
+`define Rtype  7'b0110011
+`define Btype  7'b1100011
+`define Stype  7'b0100011
+`define UtypeL 7'b0110111 //Utype for lui
+`define UtypeU 7'b0010111 //Utype for auipc
+`define Jtype  7'b1101111 //Utype for jal
  
 
 //-------------------ALU_MODE------------------
@@ -23,7 +23,8 @@
 `define XOR    4'd9 
 `define NOTEQ  4'd10 // NOT equel
 `define SGE    4'd11   // set greater than
-`define SGEU   4'd10  // set greater than unsigned
+`define SGEU   4'd12  // set greater than unsigned
+`define JUMP   4'd13   // FOR JAL,JALR
 
 //-------------------Itype_Func3----------------
 `define I_ADDI  3'b000
@@ -65,5 +66,20 @@
 `define EX_MEM_B  2'b10
 `define MEM_WB_B  2'b01
 
+//-------------------EX STAGE control----------------
+`define IMM         2'b01
+`define PC_PLUS4    2'b10
+`define REG         2'b00
 
+`define PC          2'b10
+`define NULL        2'b01
 
+`define J_REG         2'b0
+`define B_PC          2'b1
+
+//------------------MEM STAGE control-----------------
+`define LB  3'b000
+`define LH  3'b001
+`define LW  3'b010
+`define LBU 3'b100
+`define LHU 3'b101

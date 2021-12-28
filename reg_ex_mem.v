@@ -8,6 +8,7 @@ module reg_ex_mem(
     input  wire       ex_mem2reg,
     input  wire       ex_mem_write,
     input  wire       ex_regs_write,
+    input  wire[2:0]  ex_func3_code, 
 
     //forwarding
     input wire[4:0]   ex_rs2,
@@ -19,7 +20,8 @@ module reg_ex_mem(
     output reg        me_mem_read,
     output reg        me_mem2reg,
     output reg        me_mem_write,
-    output reg        me_regs_write
+    output reg        me_regs_write,
+    output reg[2:0]   me_func3_code
 );
 
 always @(posedge clk) begin
@@ -31,7 +33,8 @@ always @(posedge clk) begin
         me_mem2reg     <= 0;     
         me_mem_write   <= 0;         
         me_regs_write  <= 0;  
-        me_rs2         <= 0;       
+        me_rs2         <= 0;   
+        me_func3_code  <= 0;    
     end 
     else begin  
         me_regs_data2  <= ex_regs_data2;         
@@ -42,6 +45,7 @@ always @(posedge clk) begin
         me_mem_write   <= ex_mem_write;         
         me_regs_write  <= ex_regs_write;
         me_rs2         <= ex_rs2;    
+        me_func3_code  <= ex_func3_code; 
     end
 
     $display("me_alu_o: %h",me_alu_o);

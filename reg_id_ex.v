@@ -13,7 +13,9 @@ module reg_id_ex(
     input  wire       id_mem2reg,
     input  wire[2:0]  id_alu_op,
     input  wire       id_mem_write,
-    input  wire       id_alu_src,
+    input  wire[1:0]  id_alu_src1,
+    input  wire[1:0]  id_alu_src2,
+    input  wire       id_br_addr_mode,
     input  wire       id_regs_write,
 
     input  wire       id_ex_flush,
@@ -36,11 +38,13 @@ module reg_id_ex(
     output reg        ex_mem2reg,
     output reg[2:0]   ex_alu_op,
     output reg        ex_mem_write,
-    output reg        ex_alu_src,
+    output reg[1:0]   ex_alu_src1,
+    output reg[1:0]   ex_alu_src2,
+    output reg        ex_br_addr_mode,
     output reg        ex_regs_write
 );
 always @(posedge clk) begin
-    if (!rst | id_ex_flush)begin
+    if (!rst || id_ex_flush)begin
         ex_pc           <= 0;
         ex_regs_data1   <= 0;
         ex_regs_data2   <= 0;
@@ -53,7 +57,9 @@ always @(posedge clk) begin
         ex_mem2reg      <= 0;
         ex_alu_op       <= 0;
         ex_mem_write    <= 0;
-        ex_alu_src      <= 0;
+        ex_alu_src1     <= 0;
+        ex_alu_src2     <= 0;
+        ex_br_addr_mode <= 0;
         ex_regs_write   <= 0;
 
         ex_rs1          <= 0;
@@ -72,7 +78,9 @@ always @(posedge clk) begin
         ex_mem2reg      <= id_mem2reg;
         ex_alu_op       <= id_alu_op;
         ex_mem_write    <= id_mem_write;
-        ex_alu_src      <= id_alu_src;
+        ex_alu_src1     <= id_alu_src1;
+        ex_alu_src2     <= id_alu_src2;
+        ex_br_addr_mode <= id_br_addr_mode;
         ex_regs_write   <= id_regs_write;
 
         ex_rs1          <= id_rs1;

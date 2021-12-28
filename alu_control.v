@@ -8,7 +8,7 @@ module alu_control(
 
 always @(*) begin
     case(alu_op)
-        3'b000: //`ItypeL,`Stype,`UtypeU
+        3'b000: //`ItypeL,`Stype,`UtypeL、`UtypeU
             alu_ctrl_r = `ADD;
 
         3'b001:begin //`Btype
@@ -39,7 +39,7 @@ always @(*) begin
             endcase
         end
 
-         3'b011:begin //`ItypeA,`ItypeJ
+        3'b011:begin //`ItypeA
             case (func3_code)
                 `I_ADDI,`I_JALR  :  alu_ctrl_r = `ADD  ;
                 `I_SLLI  :  alu_ctrl_r = (func7_code == 0)? `SLL :4'b1111 ;
@@ -52,6 +52,9 @@ always @(*) begin
                 default: alu_ctrl_r = 4'b1111;
             endcase
         end
+
+        3'b100: //`ItypeJ,`Jtype
+            alu_ctrl_r = `JUMP;
         default   : alu_ctrl_r = 4'b1111;
 
     /*

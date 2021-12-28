@@ -28,7 +28,10 @@ always @(posedge clk) begin
         wb_mem2reg     <= me_mem2reg;     
         wb_regs_write  <= me_regs_write;   
     end
-
+    $display("wb_mem_data  : %h",wb_mem_data);
+    $display("wb_alu_o     : %h",wb_alu_o);
+    $display("wb_mem2reg   : %h",wb_mem2reg);
+    $display("wb_regs_write: %h",wb_regs_write);
 end
 
 endmodule

@@ -28,8 +28,8 @@ always @(posedge clk) begin
 end
 
 /*------------------------hazard check & forwarding-------------*/
-assign wb_hazard_a = w_regs_en & (w_regs_addr != 0) & (w_regs_addr == r_regs_addr1); //me_rd != 0 : don't forward the result when rd is x0
-assign wb_hazard_b = w_regs_en & (w_regs_addr != 0) & (w_regs_addr == r_regs_addr2);
+assign wb_hazard_a = w_regs_en && (w_regs_addr != 0) && (w_regs_addr == r_regs_addr1); //me_rd != 0 : don't forward the result when rd is x0
+assign wb_hazard_b = w_regs_en && (w_regs_addr != 0) && (w_regs_addr == r_regs_addr2);
 
 /*------------------------Read RegisterFile---------------*/
 assign r_regs_o1 = wb_hazard_a ? w_regs_data : regs_file[r_regs_addr1];
