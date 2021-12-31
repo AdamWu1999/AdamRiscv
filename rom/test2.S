@@ -39,7 +39,7 @@ es_j1:
 es_j4:	
 	ori x12, x0, 0x456 			# x12 = 0x456
 	jalr x18,x8, 3				# jump to 0x04,beginning
-	ori x13, x0, 0x2bc 			# x13 = 0x2bc
+	ori x13, x0, 0x2bc 			# shouldn't execute 
 
 	nop
 	nop
@@ -50,14 +50,14 @@ es_j2:
 	sb x11, 2(x13) 				# store 0x64 to mem:0x125
 	lb x14, 2(x13) 				# x14 = 0x64
 	sb x12, 1(x13) 				# store 0xef to mem:0x124
-	lh x14, 1(x13) 				# x14 = 0x64ef
+	lh x14, 1(x13) 				# x14 = 0xffff64ef
 	add x15, x14, x0 			# x15 = 0x64ef
 	sh x5, 3(x13) 				# store 0x0343 to mem:0x126
-	lw x15, 1(x13) 				# x15 = 0x034348ef
-	add x17, x7, x15 			# x17 = 0x034348f0
-	sw x11, 5(x13) 				# store 0x21c43048 to mem:0x128
-	lw x16, 5(x13) 				# x16 = 0x21c43048
-	add x17, x7, x17 			# x17 = 0x034348f1
+	lw x15, 1(x13) 				# x15 = 0x034364ef
+	add x17, x7, x15 			# x17 = 0x034364f0
+	sw x11, 5(x13) 				# store 0x21c43064 to mem:0x128
+	lw x16, 5(x13) 				# x16 = 0x21c43064
+	add x17, x7, x17 			# x17 = 0x034364f1
 es_j3:
 	lui x18, 0xfffff			# x18 = 0xfffff000
 	addi x19, x18, 1 			# x19 = 0xfffff001
