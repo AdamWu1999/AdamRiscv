@@ -66,7 +66,7 @@ es_j3:
 es_j6:
 	addi x18, x18, 1 			# x18 = 0xfffff001
 	bne x19, x18,es_j6			# no jump
-	jal x0, es_j4 				# jump to es_j3
+	jal x0, es_j4 				# jump to es_j4
 
 es_j5:
 	bge x19, x18,es_j6			# jump to es_j6
