@@ -1,0 +1,38 @@
+#!/usr/bin/perl -w
+use File::Copy qw(copy cp);
+use Cwd;
+
+chmod 0777, 'sim_config';
+$SIM_CFG = qx(sim_config);
+#$SIM_CFG =~ s/\s//g;
+@SIM_CFG = split/ /,$SIM_CFG;
+#@SIM_CFG = split/\+/,$SIM_CFG[4];
+foreach(@SIM_CFG){
+    if(/libs/g){
+        $LIB_PATH .= "$_\n";
+    }
+    if(/define/g){
+        $DEF_CFG .= "$_\n";
+    }
+    if(/incdir/g){
+        $INC_DEF .= "$_\n";
+    }
+
+    #print"$_\n";
+}
+print "$DEF_CFG\n";
+print "$LIB_PATH\n";
+print "$INC_DEF\n";
+open(MODULE_FILE_LIST,"<module_file_list") or die "Open module_file_list failed: $!";
+open(VERDI_FILE_LIST,">verdi_file_list");
+@file_line=<MODULE_FILE_LIST>;
+foreach(@file_line){
+    chomp($_);
+    say VERDI_FILE_LIST "$_";
+    }
+say VERDI_FILE_LIST "$LIB_PATH";
+say VERDI_FILE_LIST "$INC_DEF";
+close MODULE_FILE_LIST;
+close VERDI_FILE_LIST;
+
+system "verdi -sv tbtop.v -f verdi_file_list $DEF_CFG -ssf tb.fsdb &"

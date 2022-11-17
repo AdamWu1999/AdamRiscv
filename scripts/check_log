@@ -1,0 +1,24 @@
+#!/usr/bin/perl
+
+our $ERROR_FLAG = 0;
+
+unlink  'fail', 'ok';
+open(LOG_FILE,"<vcs.log") or die" Error: cannot open the vcs.log file: $!\n";
+while (<LOG_FILE>){
+        if(  (m/fail /is)
+           | (m/error /is) 
+                            ){
+                $ERROR_FLAG =1;
+                open(FAIL_FILE,">>fail") or die"Error: cannot open the fail file: $!";   
+                print FAIL_FILE "$_\n";
+            }
+       }
+close LOG_FILE;
+close FAIL_FILE;
+
+if($ERROR_FLAG eq 0) {
+    open(PASS_FILE,">>ok") or die"Error: cannot open the ok file: $!";   
+    print PASS_FILE "===============  Test Pass =================";
+    close PASS_FILE;
+    }
+

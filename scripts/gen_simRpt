@@ -1,0 +1,41 @@
+#!/usr/bin/perl
+my $dir = "./";
+
+opendir (DIR, $dir) or die "can't open the directory!";
+@dir = readdir DIR;
+foreach $_ (@dir) {
+    if(m/VCS_/) {
+            push @file_arra,"$_"; 
+            #print "* $_ \n";
+        } 
+}
+close DIR;
+
+
+foreach $_ (@file_arra){
+        chdir $_;
+        if(-e "./ok"){
+              push @ok_arra,"$_";  
+        }
+        elsif(-e "./fail"){
+              push @fail_arra,"$_";
+            }
+        chdir "../"
+    }
+
+print "\n";
+print "\n";
+print "  \t=============== PASS ===============\n";
+foreach $file_name (@ok_arra){
+    print " *\t $file_name\n";
+    }
+print "\n";
+print "  \t=============== FAIL ===============\n";
+
+foreach $file_name (@fail_arra){
+    print " *\t $file_name\n";
+    }
+print "\n";
+print "\n";
+
+

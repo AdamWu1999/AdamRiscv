@@ -1,0 +1,3 @@
+#!/usr/bin/perl
+
+system "urg -full64 -show tests -dir ./simv.vdb -dbname ./merge_total.vdb ";

@@ -1,0 +1,68 @@
+#!/bin/bash
+
+gSIM_WAVE=1
+gSIM_COV=1
+MC_MACRO=0
+
+
+if [ -n "$1" ]
+then 
+    COV_NAME=$1
+    export $COV_NAME
+else 
+    echo "$COV_NAME" 
+fi
+
+#========================================================================================
+#Define
+#========================================================================================
+DEF_CFG=""
+DEF_FILE="../../../module/CORE/RTL_V1_2"
+if [ $MC_MACRO == 1 ]
+then
+    DEF_CFG="$DEF_CFG +define+MC_MACRO=1"
+else
+    DEF_CFG="$DEF_CFG"
+fi
+
+
+
+#========================================================================================
+#SRAM libs
+#========================================================================================
+
+LIB_FILE=""
+
+if [ $MC_MACRO == 1 ] 
+then
+    LIB_FILE="$LIB_FILE ../../../libs/MC_MACRO/DP_SRAM/SRAM_4096_32_rtl.v"
+    LIB_FILE="$LIB_FILE ../../../libs/MC_MACRO/DP_SRAM/SRAM_4096_32.v"
+else
+    LIB_FILE="$LIB_FILE ../../../libs/REG_ARRAY/SRAM/ram_bfm.v"
+fi
+
+#========================================================================================
+# VCS SIMCFG 
+#========================================================================================
+
+
+
+SRAM_CELL=" +libext+ $LIB_FILE"
+INC_DEF=" +incdir+$DEF_FILE"
+SIM_CFG="$INC_DEF -f module_file_list  tbtop.v -top tbtop -timescale=1ns/1ns -full64 $SRAM_CELL $DEF_CFG -R  +vc  +v2k  -sverilog   +lint=TFIPC-L -debug_access -l vcs.log"
+
+
+if [ $gSIM_WAVE == 1 ]
+then
+    SIM_CFG="$SIM_CFG -fsdb" 
+fi
+
+if [ $gSIM_COV == 1 ]
+then
+    SIM_CFG="$SIM_CFG -cm line+cond+branch+tgl -cm_line contassign -cm_hier ./../config/coverage.cfg -cm_dir ../Cov_file/simv.vdb  -cm_name $COV_NAME"
+fi
+
+
+echo $SIM_CFG
+
+

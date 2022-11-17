@@ -1,0 +1,8 @@
+adam_riscv    u_adam_riscv(
+
+    //system signal
+    .sys_clk        (sys_clk        ),
+    .sys_rstn    (sys_rst_n      )
+    //.led_test       (led_test       )
+);
+

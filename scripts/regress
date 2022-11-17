@@ -1,0 +1,30 @@
+#!/usr/bin/perl -w
+
+#foreach $input (@ARGV){
+#    print "$input\n ";
+#}
+$mode = $ARGV[0];
+$case_path = $ARGV[2];
+my @CASE_PATH = split /\//,$case_path; 
+$case_name = "$CASE_PATH[2]_$CASE_PATH[4]";
+$introm_head = "VCS_introm_";
+$slv_head = "VCS_slv_";
+
+
+if($mode eq "-m" ){
+    mkdir $introm_head.$case_name;
+    }
+elsif($mode eq "-s"){
+    mkdir $slv_head.$case_name;
+    }
+
+
+#=======================================================================
+#call regone
+if($mode eq "-m" ){
+    system "rerun $mode $case_path $introm_head$case_name"; 
+    }
+elsif($mode eq "-s"){
+    system "rerun $mode $case_path $slv_head$case_name"; 
+    }
+

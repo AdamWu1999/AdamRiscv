@@ -1,0 +1,24 @@
+../module/CORE/RTL_V1_2/adam_riscv.v
+../module/CORE/RTL_V1_2/define.v
+../module/CORE/RTL_V1_2/data_memory.v
+../module/CORE/RTL_V1_2/hazard_detection.v
+../module/CORE/RTL_V1_2/reg_ex_mem.v
+../module/CORE/RTL_V1_2/regs.v
+../module/CORE/RTL_V1_2/stage_mem.v
+../module/CORE/RTL_V1_2/alu_control.v
+../module/CORE/RTL_V1_2/imm_gen.v
+../module/CORE/RTL_V1_2/reg_id_ex.v
+../module/CORE/RTL_V1_2/stage_ex.v
+../module/CORE/RTL_V1_2/stage_wb.v
+../module/CORE/RTL_V1_2/alu.v
+../module/CORE/RTL_V1_2/inst_memory.v
+../module/CORE/RTL_V1_2/reg_if_id.v
+../module/CORE/RTL_V1_2/stage_id.v
+../module/CORE/RTL_V1_2/ctrl.v
+../module/CORE/RTL_V1_2/forwarding.v
+../module/CORE/RTL_V1_2/pc.v
+../module/CORE/RTL_V1_2/reg_mem_wb.v
+../module/CORE/RTL_V1_2/stage_if.v
+../module/CORE/RTL_V1_2/syn_rst.v
++libext+ ../libs/REG_ARRAY/SRAM/ram_bfm.v 
++incdir+../module/CORE/RTL_V1_2/

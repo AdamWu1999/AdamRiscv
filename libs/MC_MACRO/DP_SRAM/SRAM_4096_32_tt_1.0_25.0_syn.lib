@@ -1,0 +1,2712 @@
+/*
+ *      CONFIDENTIAL  AND  PROPRIETARY SOFTWARE OF ARM Physical IP, INC.
+ *      
+ *      Copyright (c) 1993-2022  ARM Physical IP, Inc.  All  Rights Reserved.
+ *      
+ *      Use of this Software is subject to the terms and conditions  of the
+ *      applicable license agreement with ARM Physical IP, Inc.  In addition,
+ *      this Software is protected by patents, copyright law and international
+ *      treaties.
+ *      
+ *      The copyright notice(s) in this Software does not indicate actual or
+ *      intended publication of this Software.
+ *      
+ *      name:			Advantage Dual-Port SRAM Generator
+ *           			TSMC CLN90G Process
+ *      version:		2005Q4V1
+ *      comment:		
+ *      configuration:	 -instname "SRAM_4096_32" -words 4096 -bits 32 -frequency 150 -ring_width 2.0 -mux 16 -write_mask on -wp_size 8 -top_layer "met5-9" -power_type rings -horiz met3 -vert met4 -redundancy off -rcols 2 -rrows 2 -bmux off -ser none -ema on -cust_comment "" -bus_notation on -left_bus_delim "[" -right_bus_delim "]" -pwr_gnd_rename "VDD:VDD,VSS:VSS" -prefix "" -pin_space 0.0 -name_case upper -check_instname on -diodes on -inside_ring_type VSS -drive 6 -dpccm on -asvm off -libname USERLIB -corners ff_1.1_-40.0,ff_1.1_125.0,tt_1.0_25.0,ss_0.9_125.0
+ *
+ *      Synopsys model for Synchronous Dual-Port Ram
+ *
+ *      Library Name:   USERLIB
+ *      Instance Name:  SRAM_4096_32
+ *      Words:          4096
+ *      Word Width:     32
+ *      Mux:            16
+ *      Corner:        tt_1.0_25.0
+ *
+ *      Creation Date:  2022-08-30 09:27:15Z
+ *      Version:        2005Q4V1
+ *
+ *      Verified With: Synopsys Design Compiler
+ *
+ *      Modeling Assumptions: This library contains a black box description
+ *          for a memory element.  At the library level, a
+ *          default_max_transition constraint is set to the maximum
+ *          characterized input slew.  Each output has a max_capacitance
+ *          constraint set to the highest characterized output load.  These two
+ *          constraints force Design Compiler to synthesize circuits that
+ *          operate within the characterization space.  The user can tighten
+ *          these constraints, if desired.  When writing SDF from Design
+ *          Compiler, use the version 2.1 option.  This ensures the SDF will
+ *          annotate to simulation models provided with this generator.
+ *
+ *      Modeling Limitations: 
+ *          Due to limitations of the .lib format, some data reduction was
+ *          necessary.  When reducing data, minimum values were chosen for the
+ *          fast case corner and maximum values were used for the typical and
+ *          best case corners.  It is recommended that critical timing and
+ *          setup and hold times be checked at all corners.
+ *
+ *      Known Bugs: None.
+ *
+ *      Known Work Arounds: N/A
+ *
+ */
+
+library(USERLIB) {
+	delay_model		: table_lookup;
+	revision		: 1.1;	
+	date			: "2022-08-30 09:27:15Z";
+	comment			: "Confidential Information of ARM Physical IP, Inc.  Use subject to ARM Physical IP, Inc. license.  Copyright (c) 1993-2022 ARM Physical IP, Inc.";
+	time_unit		: "1ns";
+	voltage_unit		: "1V";
+	current_unit		: "1mA";
+	leakage_power_unit	: "1mW";
+	nom_process		: 1;
+	nom_temperature		: 25.000;
+	nom_voltage		: 1.000;
+	capacitive_load_unit	 (1,pf);
+
+	pulling_resistance_unit	        : "1kohm";
+
+	/* additional header data */
+	default_cell_leakage_power      : 0;
+	default_fanout_load		: 1;
+	default_inout_pin_cap		: 0.005;
+	default_input_pin_cap		: 0.005;
+	default_output_pin_cap		: 0.0;
+	default_max_transition		: 0.603;
+
+        /* default attributes */
+        default_leakage_power_density : 0.0;
+        slew_derate_from_library      : 1.000;
+        slew_lower_threshold_pct_fall : 10.000;
+        slew_upper_threshold_pct_fall : 90.000;
+        slew_lower_threshold_pct_rise : 10.000;
+        slew_upper_threshold_pct_rise : 90.000;
+        input_threshold_pct_fall      : 50.000;
+        input_threshold_pct_rise      : 50.000;
+        output_threshold_pct_fall     : 50.000;
+        output_threshold_pct_rise     : 50.000;
+
+ 	/* k-factors */
+ 	k_process_cell_fall             : 1;
+ 	k_process_cell_leakage_power    : 0;
+ 	k_process_cell_rise             : 1;
+ 	k_process_fall_transition       : 1;
+ 	k_process_hold_fall             : 1;
+ 	k_process_hold_rise             : 1;
+ 	k_process_internal_power        : 0;
+ 	k_process_min_pulse_width_high  : 1;
+ 	k_process_min_pulse_width_low   : 1;
+ 	k_process_pin_cap               : 0;
+ 	k_process_recovery_fall         : 1;
+ 	k_process_recovery_rise         : 1;
+ 	k_process_rise_transition       : 1;
+ 	k_process_setup_fall            : 1;
+ 	k_process_setup_rise            : 1;
+ 	k_process_wire_cap              : 0;
+ 	k_process_wire_res              : 0;
+	k_temp_cell_fall		: 0.000;
+	k_temp_cell_rise		: 0.000;
+	k_temp_hold_fall                : 0.000;
+	k_temp_hold_rise                : 0.000;
+	k_temp_min_pulse_width_high     : 0.000;
+	k_temp_min_pulse_width_low      : 0.000;
+	k_temp_min_period               : 0.000;
+	k_temp_rise_propagation         : 0.000;
+	k_temp_fall_propagation         : 0.000;
+	k_temp_rise_transition          : 0.0;
+	k_temp_fall_transition          : 0.0;
+	k_temp_recovery_fall            : 0.000;
+	k_temp_recovery_rise            : 0.000;
+	k_temp_setup_fall               : 0.000;
+	k_temp_setup_rise               : 0.000;
+	k_volt_cell_fall                : 0.000;
+	k_volt_cell_rise                : 0.000;
+	k_volt_hold_fall                : 0.000;
+	k_volt_hold_rise                : 0.000;
+	k_volt_min_pulse_width_high     : 0.000;
+	k_volt_min_pulse_width_low      : 0.000;
+	k_volt_min_period               : 0.000;
+	k_volt_rise_propagation         : 0.000;
+	k_volt_fall_propagation         : 0.000;
+	k_volt_rise_transition	        : 0.0;
+	k_volt_fall_transition	        : 0.0;
+	k_volt_recovery_fall            : 0.000;
+	k_volt_recovery_rise            : 0.000;
+	k_volt_setup_fall               : 0.000;
+	k_volt_setup_rise               : 0.000;
+
+
+        operating_conditions(tt_1.0_25.0) {
+		process	 : 1;
+		temperature	 : 25.000;
+		voltage	 : 1.000;
+		tree_type	 : balanced_tree;
+	}
+        default_operating_conditions : tt_1.0_25.0;
+	wire_load("sample") {
+		resistance	 : 1.6e-05;
+		capacitance	 : 0.0002;
+		area	 : 1.7;
+  		slope	 : 500;
+		fanout_length	 (1,500);
+	}
+        lu_table_template(SRAM_4096_32_bist_mux_delay_template) {
+           variable_1 : input_net_transition;
+           variable_2 : total_output_net_capacitance;
+               index_1 ("1000, 1001, 1002, 1003, 1004, 1005, 1006");
+               index_2 ("1000, 1001, 1002, 1003, 1004, 1005, 1006");
+        }
+        lu_table_template(SRAM_4096_32_mux_mem_out_delay_template) {
+           variable_1 : input_net_transition;
+           variable_2 : total_output_net_capacitance;
+               index_1 ("1000, 1001, 1002, 1003, 1004, 1005, 1006");
+               index_2 ("1000, 1001, 1002, 1003, 1004, 1005, 1006");
+        }
+        lu_table_template(SRAM_4096_32_mem_out_delay_template) {
+           variable_1 : input_net_transition;
+           variable_2 : total_output_net_capacitance;
+               index_1 ("1000, 1001, 1002, 1003, 1004, 1005, 1006");
+               index_2 ("1000, 1001, 1002, 1003, 1004, 1005, 1006");
+        }
+	lu_table_template(SRAM_4096_32_bist_mux_slew_template) {
+           variable_1 : total_output_net_capacitance;
+               index_1 ("1000, 1001, 1002, 1003, 1004, 1005, 1006");
+        }
+	lu_table_template(SRAM_4096_32_mem_out_slew_template) {
+           variable_1 : total_output_net_capacitance;
+               index_1 ("1000, 1001, 1002, 1003, 1004, 1005, 1006");
+        }
+	lu_table_template(SRAM_4096_32_clk_setup_constraint_template) {
+           variable_1 : related_pin_transition;
+           variable_2 : constrained_pin_transition;
+               index_1 ("1000, 1001, 1002, 1003, 1004, 1005, 1006");
+               index_2 ("1000, 1001, 1002, 1003, 1004, 1005, 1006");
+        }
+	lu_table_template(SRAM_4096_32_constraint_template) {
+           variable_1 : related_pin_transition;
+           variable_2 : constrained_pin_transition;
+               index_1 ("1000, 1001, 1002, 1003, 1004, 1005, 1006");
+               index_2 ("1000, 1001, 1002, 1003, 1004, 1005, 1006");
+        }
+        power_lut_template(SRAM_4096_32_energy_template_clkslew_load) {
+           variable_1 : input_transition_time;
+           variable_2 : total_output_net_capacitance;
+               index_1 ("1000, 1001, 1002, 1003, 1004, 1005, 1006");
+               index_2 ("1000, 1001, 1002, 1003, 1004, 1005, 1006");
+        }
+        power_lut_template(SRAM_4096_32_energy_template_sigslew_load) {
+           variable_1 : input_transition_time;
+           variable_2 : total_output_net_capacitance;
+               index_1 ("1000, 1001, 1002, 1003, 1004, 1005, 1006");
+               index_2 ("1000, 1001, 1002, 1003, 1004, 1005, 1006");
+        }
+        power_lut_template(SRAM_4096_32_energy_template_load) {
+           variable_1 : total_output_net_capacitance;
+               index_1 ("1000, 1001, 1002, 1003, 1004, 1005, 1006");
+        }
+        power_lut_template(SRAM_4096_32_energy_template_clkslew) {
+           variable_1 : input_transition_time;
+               index_1 ("1000, 1001, 1002, 1003, 1004, 1005, 1006");
+        }
+        power_lut_template(SRAM_4096_32_energy_template_sigslew) {
+           variable_1 : input_transition_time;
+               index_1 ("1000, 1001, 1002, 1003, 1004, 1005, 1006");
+        }
+	library_features(report_delay_calculation);
+	type (SRAM_4096_32_DATA) {
+		base_type : array ;
+		data_type : bit ;
+		bit_width : 32;
+		bit_from : 31;
+		bit_to : 0 ;
+		downto : true ;
+	}
+	type (SRAM_4096_32_UPM) {
+		base_type : array ;
+		data_type : bit ;
+		bit_width : 3;
+		bit_from : 2;
+		bit_to : 0 ;
+		downto : true ;
+	}
+	type (SRAM_4096_32_ADDRESS) {
+		base_type : array ;
+		data_type : bit ;
+		bit_width : 12;
+		bit_from : 11;
+		bit_to : 0 ;
+		downto : true ;
+	}
+	type (SRAM_4096_32_WRITE) {
+		base_type : array ;
+		data_type : bit ;
+		bit_width : 4;
+		bit_from : 3;
+		bit_to : 0 ;
+		downto : true ;
+	}
+cell(SRAM_4096_32) {
+	area		 : 442210.109;
+	dont_use	 : TRUE;
+	dont_touch	 : TRUE;
+        interface_timing : TRUE;
+	memory() {
+		type : ram;
+		address_width : 12;
+		word_width : 32;
+	}
+        bus(QA)   {
+                bus_type : SRAM_4096_32_DATA;
+		direction : output;
+		max_capacitance : 0.360;
+                memory_read() {
+			address : AA;
+		}
+                timing() {
+                        related_pin :   "CLKA" ;
+                        timing_type : rising_edge;
+                        timing_sense : non_unate;
+                        when : "(!EMAA[2]) & (!EMAA[1]) & (!EMAA[0])";
+                        sdf_cond : "EMAA[2] == 1'b0 && EMAA[1] == 1'b0 && EMAA[0] == 1'b0";
+                        cell_rise(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "1.249, 1.256, 1.263, 1.277, 1.321, 1.394, 1.466", \
+                          "1.248, 1.255, 1.262, 1.277, 1.320, 1.393, 1.465", \
+                          "1.247, 1.254, 1.261, 1.276, 1.319, 1.392, 1.465", \
+                          "1.245, 1.252, 1.259, 1.274, 1.317, 1.390, 1.463", \
+                          "1.240, 1.246, 1.254, 1.268, 1.312, 1.385, 1.457", \
+                          "1.231, 1.237, 1.245, 1.259, 1.303, 1.375, 1.448", \
+                          "1.221, 1.228, 1.235, 1.250, 1.294, 1.366, 1.439" \
+                        )
+                        }
+                        rise_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.036, 0.054, 0.073, 0.111, 0.226, 0.418, 0.610")
+                        }
+                        cell_fall(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "1.277, 1.285, 1.294, 1.312, 1.364, 1.451, 1.538", \
+                          "1.277, 1.285, 1.293, 1.311, 1.363, 1.450, 1.538", \
+                          "1.276, 1.284, 1.292, 1.310, 1.362, 1.449, 1.537", \
+                          "1.274, 1.282, 1.291, 1.308, 1.360, 1.448, 1.535", \
+                          "1.268, 1.276, 1.285, 1.303, 1.355, 1.442, 1.529", \
+                          "1.259, 1.267, 1.276, 1.293, 1.346, 1.433, 1.520", \
+                          "1.250, 1.258, 1.267, 1.284, 1.337, 1.424, 1.511" \
+                        )
+                        }
+                        fall_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.054, 0.067, 0.081, 0.109, 0.193, 0.334, 0.475")
+                        }
+                }
+                timing() {
+                        related_pin :   "CLKA" ;
+                        timing_type : rising_edge;
+                        timing_sense : non_unate;
+                        when : "(!EMAA[2]) & (!EMAA[1]) & (EMAA[0])";
+                        sdf_cond : "EMAA[2] == 1'b0 && EMAA[1] == 1'b0 && EMAA[0] == 1'b1";
+                        cell_rise(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "1.410, 1.416, 1.424, 1.438, 1.482, 1.554, 1.627", \
+                          "1.409, 1.416, 1.423, 1.437, 1.481, 1.554, 1.626", \
+                          "1.408, 1.415, 1.422, 1.436, 1.480, 1.553, 1.625", \
+                          "1.406, 1.413, 1.420, 1.435, 1.478, 1.551, 1.624", \
+                          "1.401, 1.407, 1.415, 1.429, 1.473, 1.545, 1.618", \
+                          "1.391, 1.398, 1.405, 1.420, 1.464, 1.536, 1.609", \
+                          "1.382, 1.389, 1.396, 1.411, 1.454, 1.527, 1.600" \
+                        )
+                        }
+                        rise_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.036, 0.054, 0.073, 0.111, 0.226, 0.418, 0.610")
+                        }
+                        cell_fall(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "1.438, 1.446, 1.455, 1.472, 1.525, 1.612, 1.699", \
+                          "1.437, 1.445, 1.454, 1.472, 1.524, 1.611, 1.698", \
+                          "1.436, 1.444, 1.453, 1.471, 1.523, 1.610, 1.698", \
+                          "1.435, 1.443, 1.451, 1.469, 1.521, 1.608, 1.696", \
+                          "1.429, 1.437, 1.446, 1.463, 1.516, 1.603, 1.690", \
+                          "1.420, 1.428, 1.437, 1.454, 1.507, 1.594, 1.681", \
+                          "1.411, 1.419, 1.428, 1.445, 1.497, 1.585, 1.672" \
+                        )
+                        }
+                        fall_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.054, 0.067, 0.081, 0.109, 0.193, 0.334, 0.475")
+                        }
+                }
+                timing() {
+                        related_pin :   "CLKA" ;
+                        timing_type : rising_edge;
+                        timing_sense : non_unate;
+                        when : "(!EMAA[2]) & (EMAA[1]) & (!EMAA[0])";
+                        sdf_cond : "EMAA[2] == 1'b0 && EMAA[1] == 1'b1 && EMAA[0] == 1'b0";
+                        cell_rise(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "1.708, 1.714, 1.722, 1.736, 1.780, 1.852, 1.925", \
+                          "1.707, 1.713, 1.721, 1.735, 1.779, 1.851, 1.924", \
+                          "1.706, 1.713, 1.720, 1.734, 1.778, 1.851, 1.923", \
+                          "1.704, 1.711, 1.718, 1.732, 1.776, 1.849, 1.921", \
+                          "1.699, 1.705, 1.712, 1.727, 1.771, 1.843, 1.916", \
+                          "1.689, 1.696, 1.703, 1.718, 1.761, 1.834, 1.907", \
+                          "1.680, 1.687, 1.694, 1.709, 1.752, 1.825, 1.898" \
+                        )
+                        }
+                        rise_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.036, 0.054, 0.073, 0.111, 0.226, 0.418, 0.610")
+                        }
+                        cell_fall(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "1.736, 1.744, 1.753, 1.770, 1.823, 1.910, 1.997", \
+                          "1.735, 1.743, 1.752, 1.769, 1.822, 1.909, 1.996", \
+                          "1.734, 1.742, 1.751, 1.769, 1.821, 1.908, 1.995", \
+                          "1.733, 1.741, 1.749, 1.767, 1.819, 1.906, 1.994", \
+                          "1.727, 1.735, 1.744, 1.761, 1.814, 1.901, 1.988", \
+                          "1.718, 1.726, 1.735, 1.752, 1.804, 1.892, 1.979", \
+                          "1.709, 1.717, 1.725, 1.743, 1.795, 1.882, 1.970" \
+                        )
+                        }
+                        fall_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.054, 0.067, 0.081, 0.109, 0.193, 0.334, 0.475")
+                        }
+                }
+                timing() {
+                        related_pin :   "CLKA" ;
+                        timing_type : rising_edge;
+                        timing_sense : non_unate;
+                        when : "(!EMAA[2]) & (EMAA[1]) & (EMAA[0])";
+                        sdf_cond : "EMAA[2] == 1'b0 && EMAA[1] == 1'b1 && EMAA[0] == 1'b1";
+                        cell_rise(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "1.853, 1.859, 1.866, 1.881, 1.925, 1.997, 2.070", \
+                          "1.852, 1.858, 1.866, 1.880, 1.924, 1.996, 2.069", \
+                          "1.851, 1.857, 1.865, 1.879, 1.923, 1.996, 2.068", \
+                          "1.849, 1.856, 1.863, 1.877, 1.921, 1.994, 2.066", \
+                          "1.843, 1.850, 1.857, 1.872, 1.916, 1.988, 2.061", \
+                          "1.834, 1.841, 1.848, 1.863, 1.906, 1.979, 2.052", \
+                          "1.825, 1.832, 1.839, 1.854, 1.897, 1.970, 2.043" \
+                        )
+                        }
+                        rise_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.036, 0.054, 0.073, 0.111, 0.226, 0.418, 0.610")
+                        }
+                        cell_fall(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "1.881, 1.889, 1.898, 1.915, 1.968, 2.055, 2.142", \
+                          "1.880, 1.888, 1.897, 1.914, 1.967, 2.054, 2.141", \
+                          "1.879, 1.887, 1.896, 1.913, 1.966, 2.053, 2.140", \
+                          "1.878, 1.886, 1.894, 1.912, 1.964, 2.051, 2.139", \
+                          "1.872, 1.880, 1.889, 1.906, 1.959, 2.046, 2.133", \
+                          "1.863, 1.871, 1.880, 1.897, 1.949, 2.037, 2.124", \
+                          "1.854, 1.862, 1.870, 1.888, 1.940, 2.027, 2.115" \
+                        )
+                        }
+                        fall_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.054, 0.067, 0.081, 0.109, 0.193, 0.334, 0.475")
+                        }
+                }
+                timing() {
+                        related_pin :   "CLKA" ;
+                        timing_type : rising_edge;
+                        timing_sense : non_unate;
+                        when : "(EMAA[2]) & (!EMAA[1]) & (!EMAA[0])";
+                        sdf_cond : "EMAA[2] == 1'b1 && EMAA[1] == 1'b0 && EMAA[0] == 1'b0";
+                        cell_rise(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000" \
+                        )
+                        }
+                        rise_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.036, 0.054, 0.073, 0.111, 0.226, 0.418, 0.610")
+                        }
+                        cell_fall(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000" \
+                        )
+                        }
+                        fall_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.054, 0.067, 0.081, 0.109, 0.193, 0.334, 0.475")
+                        }
+                }
+                timing() {
+                        related_pin :   "CLKA" ;
+                        timing_type : rising_edge;
+                        timing_sense : non_unate;
+                        when : "(EMAA[2]) & (!EMAA[1]) & (EMAA[0])";
+                        sdf_cond : "EMAA[2] == 1'b1 && EMAA[1] == 1'b0 && EMAA[0] == 1'b1";
+                        cell_rise(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000" \
+                        )
+                        }
+                        rise_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.036, 0.054, 0.073, 0.111, 0.226, 0.418, 0.610")
+                        }
+                        cell_fall(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000" \
+                        )
+                        }
+                        fall_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.054, 0.067, 0.081, 0.109, 0.193, 0.334, 0.475")
+                        }
+                }
+                timing() {
+                        related_pin :   "CLKA" ;
+                        timing_type : rising_edge;
+                        timing_sense : non_unate;
+                        when : "(EMAA[2]) & (EMAA[1]) & (!EMAA[0])";
+                        sdf_cond : "EMAA[2] == 1'b1 && EMAA[1] == 1'b1 && EMAA[0] == 1'b0";
+                        cell_rise(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000" \
+                        )
+                        }
+                        rise_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.036, 0.054, 0.073, 0.111, 0.226, 0.418, 0.610")
+                        }
+                        cell_fall(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000" \
+                        )
+                        }
+                        fall_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.054, 0.067, 0.081, 0.109, 0.193, 0.334, 0.475")
+                        }
+                }
+                timing() {
+                        related_pin :   "CLKA" ;
+                        timing_type : rising_edge;
+                        timing_sense : non_unate;
+                        when : "(EMAA[2]) & (EMAA[1]) & (EMAA[0])";
+                        sdf_cond : "EMAA[2] == 1'b1 && EMAA[1] == 1'b1 && EMAA[0] == 1'b1";
+                        cell_rise(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000" \
+                        )
+                        }
+                        rise_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.036, 0.054, 0.073, 0.111, 0.226, 0.418, 0.610")
+                        }
+                        cell_fall(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000" \
+                        )
+                        }
+                        fall_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.054, 0.067, 0.081, 0.109, 0.193, 0.334, 0.475")
+                        }
+                }
+                internal_power(){
+                        rise_power(SRAM_4096_32_energy_template_load) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.004, 0.015, 0.028, 0.053, 0.129, 0.256, 0.383")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_load) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000")
+                        }
+                }
+        }
+        bus(QB)   {
+                bus_type : SRAM_4096_32_DATA;
+		direction : output;
+		max_capacitance : 0.360;
+                memory_read() {
+			address : AB;
+		}
+                timing() {
+                        related_pin :   "CLKB" ;
+                        timing_type : rising_edge;
+                        timing_sense : non_unate;
+                        when : "(!EMAB[2]) & (!EMAB[1]) & (!EMAB[0])";
+                        sdf_cond : "EMAB[2] == 1'b0 && EMAB[1] == 1'b0 && EMAB[0] == 1'b0";
+                        cell_rise(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "1.249, 1.256, 1.263, 1.277, 1.321, 1.394, 1.466", \
+                          "1.248, 1.255, 1.262, 1.277, 1.320, 1.393, 1.465", \
+                          "1.247, 1.254, 1.261, 1.276, 1.319, 1.392, 1.465", \
+                          "1.245, 1.252, 1.259, 1.274, 1.317, 1.390, 1.463", \
+                          "1.240, 1.246, 1.254, 1.268, 1.312, 1.385, 1.457", \
+                          "1.231, 1.237, 1.245, 1.259, 1.303, 1.375, 1.448", \
+                          "1.221, 1.228, 1.235, 1.250, 1.294, 1.366, 1.439" \
+                        )
+                        }
+                        rise_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.036, 0.054, 0.073, 0.111, 0.226, 0.418, 0.610")
+                        }
+                        cell_fall(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "1.277, 1.285, 1.294, 1.312, 1.364, 1.451, 1.538", \
+                          "1.277, 1.285, 1.293, 1.311, 1.363, 1.450, 1.538", \
+                          "1.276, 1.284, 1.292, 1.310, 1.362, 1.449, 1.537", \
+                          "1.274, 1.282, 1.291, 1.308, 1.360, 1.448, 1.535", \
+                          "1.268, 1.276, 1.285, 1.303, 1.355, 1.442, 1.529", \
+                          "1.259, 1.267, 1.276, 1.293, 1.346, 1.433, 1.520", \
+                          "1.250, 1.258, 1.267, 1.284, 1.337, 1.424, 1.511" \
+                        )
+                        }
+                        fall_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.054, 0.067, 0.081, 0.109, 0.193, 0.334, 0.475")
+                        }
+                }
+                timing() {
+                        related_pin :   "CLKB" ;
+                        timing_type : rising_edge;
+                        timing_sense : non_unate;
+                        when : "(!EMAB[2]) & (!EMAB[1]) & (EMAB[0])";
+                        sdf_cond : "EMAB[2] == 1'b0 && EMAB[1] == 1'b0 && EMAB[0] == 1'b1";
+                        cell_rise(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "1.410, 1.416, 1.424, 1.438, 1.482, 1.554, 1.627", \
+                          "1.409, 1.416, 1.423, 1.437, 1.481, 1.554, 1.626", \
+                          "1.408, 1.415, 1.422, 1.436, 1.480, 1.553, 1.625", \
+                          "1.406, 1.413, 1.420, 1.435, 1.478, 1.551, 1.624", \
+                          "1.401, 1.407, 1.415, 1.429, 1.473, 1.545, 1.618", \
+                          "1.391, 1.398, 1.405, 1.420, 1.464, 1.536, 1.609", \
+                          "1.382, 1.389, 1.396, 1.411, 1.454, 1.527, 1.600" \
+                        )
+                        }
+                        rise_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.036, 0.054, 0.073, 0.111, 0.226, 0.418, 0.610")
+                        }
+                        cell_fall(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "1.438, 1.446, 1.455, 1.472, 1.525, 1.612, 1.699", \
+                          "1.437, 1.445, 1.454, 1.472, 1.524, 1.611, 1.698", \
+                          "1.436, 1.444, 1.453, 1.471, 1.523, 1.610, 1.698", \
+                          "1.435, 1.443, 1.451, 1.469, 1.521, 1.608, 1.696", \
+                          "1.429, 1.437, 1.446, 1.463, 1.516, 1.603, 1.690", \
+                          "1.420, 1.428, 1.437, 1.454, 1.507, 1.594, 1.681", \
+                          "1.411, 1.419, 1.428, 1.445, 1.497, 1.585, 1.672" \
+                        )
+                        }
+                        fall_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.054, 0.067, 0.081, 0.109, 0.193, 0.334, 0.475")
+                        }
+                }
+                timing() {
+                        related_pin :   "CLKB" ;
+                        timing_type : rising_edge;
+                        timing_sense : non_unate;
+                        when : "(!EMAB[2]) & (EMAB[1]) & (!EMAB[0])";
+                        sdf_cond : "EMAB[2] == 1'b0 && EMAB[1] == 1'b1 && EMAB[0] == 1'b0";
+                        cell_rise(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "1.708, 1.714, 1.722, 1.736, 1.780, 1.852, 1.925", \
+                          "1.707, 1.713, 1.721, 1.735, 1.779, 1.851, 1.924", \
+                          "1.706, 1.713, 1.720, 1.734, 1.778, 1.851, 1.923", \
+                          "1.704, 1.711, 1.718, 1.732, 1.776, 1.849, 1.921", \
+                          "1.699, 1.705, 1.712, 1.727, 1.771, 1.843, 1.916", \
+                          "1.689, 1.696, 1.703, 1.718, 1.761, 1.834, 1.907", \
+                          "1.680, 1.687, 1.694, 1.709, 1.752, 1.825, 1.898" \
+                        )
+                        }
+                        rise_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.036, 0.054, 0.073, 0.111, 0.226, 0.418, 0.610")
+                        }
+                        cell_fall(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "1.736, 1.744, 1.753, 1.770, 1.823, 1.910, 1.997", \
+                          "1.735, 1.743, 1.752, 1.769, 1.822, 1.909, 1.996", \
+                          "1.734, 1.742, 1.751, 1.769, 1.821, 1.908, 1.995", \
+                          "1.733, 1.741, 1.749, 1.767, 1.819, 1.906, 1.994", \
+                          "1.727, 1.735, 1.744, 1.761, 1.814, 1.901, 1.988", \
+                          "1.718, 1.726, 1.735, 1.752, 1.804, 1.892, 1.979", \
+                          "1.709, 1.717, 1.725, 1.743, 1.795, 1.882, 1.970" \
+                        )
+                        }
+                        fall_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.054, 0.067, 0.081, 0.109, 0.193, 0.334, 0.475")
+                        }
+                }
+                timing() {
+                        related_pin :   "CLKB" ;
+                        timing_type : rising_edge;
+                        timing_sense : non_unate;
+                        when : "(!EMAB[2]) & (EMAB[1]) & (EMAB[0])";
+                        sdf_cond : "EMAB[2] == 1'b0 && EMAB[1] == 1'b1 && EMAB[0] == 1'b1";
+                        cell_rise(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "1.853, 1.859, 1.866, 1.881, 1.925, 1.997, 2.070", \
+                          "1.852, 1.858, 1.866, 1.880, 1.924, 1.996, 2.069", \
+                          "1.851, 1.857, 1.865, 1.879, 1.923, 1.996, 2.068", \
+                          "1.849, 1.856, 1.863, 1.877, 1.921, 1.994, 2.066", \
+                          "1.843, 1.850, 1.857, 1.872, 1.916, 1.988, 2.061", \
+                          "1.834, 1.841, 1.848, 1.863, 1.906, 1.979, 2.052", \
+                          "1.825, 1.832, 1.839, 1.854, 1.897, 1.970, 2.043" \
+                        )
+                        }
+                        rise_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.036, 0.054, 0.073, 0.111, 0.226, 0.418, 0.610")
+                        }
+                        cell_fall(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "1.881, 1.889, 1.898, 1.915, 1.968, 2.055, 2.142", \
+                          "1.880, 1.888, 1.897, 1.914, 1.967, 2.054, 2.141", \
+                          "1.879, 1.887, 1.896, 1.913, 1.966, 2.053, 2.140", \
+                          "1.878, 1.886, 1.894, 1.912, 1.964, 2.051, 2.139", \
+                          "1.872, 1.880, 1.889, 1.906, 1.959, 2.046, 2.133", \
+                          "1.863, 1.871, 1.880, 1.897, 1.949, 2.037, 2.124", \
+                          "1.854, 1.862, 1.870, 1.888, 1.940, 2.027, 2.115" \
+                        )
+                        }
+                        fall_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.054, 0.067, 0.081, 0.109, 0.193, 0.334, 0.475")
+                        }
+                }
+                timing() {
+                        related_pin :   "CLKB" ;
+                        timing_type : rising_edge;
+                        timing_sense : non_unate;
+                        when : "(EMAB[2]) & (!EMAB[1]) & (!EMAB[0])";
+                        sdf_cond : "EMAB[2] == 1'b1 && EMAB[1] == 1'b0 && EMAB[0] == 1'b0";
+                        cell_rise(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000" \
+                        )
+                        }
+                        rise_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.036, 0.054, 0.073, 0.111, 0.226, 0.418, 0.610")
+                        }
+                        cell_fall(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000" \
+                        )
+                        }
+                        fall_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.054, 0.067, 0.081, 0.109, 0.193, 0.334, 0.475")
+                        }
+                }
+                timing() {
+                        related_pin :   "CLKB" ;
+                        timing_type : rising_edge;
+                        timing_sense : non_unate;
+                        when : "(EMAB[2]) & (!EMAB[1]) & (EMAB[0])";
+                        sdf_cond : "EMAB[2] == 1'b1 && EMAB[1] == 1'b0 && EMAB[0] == 1'b1";
+                        cell_rise(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000" \
+                        )
+                        }
+                        rise_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.036, 0.054, 0.073, 0.111, 0.226, 0.418, 0.610")
+                        }
+                        cell_fall(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000" \
+                        )
+                        }
+                        fall_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.054, 0.067, 0.081, 0.109, 0.193, 0.334, 0.475")
+                        }
+                }
+                timing() {
+                        related_pin :   "CLKB" ;
+                        timing_type : rising_edge;
+                        timing_sense : non_unate;
+                        when : "(EMAB[2]) & (EMAB[1]) & (!EMAB[0])";
+                        sdf_cond : "EMAB[2] == 1'b1 && EMAB[1] == 1'b1 && EMAB[0] == 1'b0";
+                        cell_rise(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000" \
+                        )
+                        }
+                        rise_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.036, 0.054, 0.073, 0.111, 0.226, 0.418, 0.610")
+                        }
+                        cell_fall(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000" \
+                        )
+                        }
+                        fall_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.054, 0.067, 0.081, 0.109, 0.193, 0.334, 0.475")
+                        }
+                }
+                timing() {
+                        related_pin :   "CLKB" ;
+                        timing_type : rising_edge;
+                        timing_sense : non_unate;
+                        when : "(EMAB[2]) & (EMAB[1]) & (EMAB[0])";
+                        sdf_cond : "EMAB[2] == 1'b1 && EMAB[1] == 1'b1 && EMAB[0] == 1'b1";
+                        cell_rise(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000" \
+                        )
+                        }
+                        rise_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.036, 0.054, 0.073, 0.111, 0.226, 0.418, 0.610")
+                        }
+                        cell_fall(SRAM_4096_32_mem_out_delay_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ( \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000", \
+                          "999.000, 999.000, 999.000, 999.000, 999.000, 999.000, 999.000" \
+                        )
+                        }
+                        fall_transition(SRAM_4096_32_mem_out_slew_template) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.054, 0.067, 0.081, 0.109, 0.193, 0.334, 0.475")
+                        }
+                }
+                internal_power(){
+                        rise_power(SRAM_4096_32_energy_template_load) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.004, 0.015, 0.028, 0.053, 0.129, 0.256, 0.383")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_load) {
+                        index_1 ("0.001, 0.012, 0.024, 0.048, 0.120, 0.240, 0.360");
+                        values ("0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000")
+                        }
+                }
+        }
+        pin(CLKA)   {
+		direction : input;
+		capacitance : 0.111;
+                clock : true;
+                max_transition : 1.000;
+                timing() {
+                        related_pin     : "CLKB" ;
+                        timing_type     : setup_rising ;
+                        when : "(!EMAA[2]) & (!EMAA[1]) & (!EMAA[0])";
+                        sdf_cond : "contA_EMAA2eq0andEMAA1eq0andEMAA0eq0";
+                        rise_constraint(SRAM_4096_32_clk_setup_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.864, 0.864, 0.864, 0.864, 0.864, 0.864, 0.864", \
+                          "0.864, 0.864, 0.864, 0.864, 0.864, 0.864, 0.864", \
+                          "0.864, 0.864, 0.864, 0.864, 0.864, 0.864, 0.864", \
+                          "0.864, 0.864, 0.864, 0.864, 0.864, 0.864, 0.864", \
+                          "0.864, 0.864, 0.864, 0.864, 0.864, 0.864, 0.864", \
+                          "0.864, 0.864, 0.864, 0.864, 0.864, 0.864, 0.864", \
+                          "0.864, 0.864, 0.864, 0.864, 0.864, 0.864, 0.864" \
+                        )
+                        }
+                 }
+                timing() {
+                        related_pin     : "CLKB" ;
+                        timing_type     : setup_rising ;
+                        when : "(!EMAA[2]) & (!EMAA[1]) & (EMAA[0])";
+                        sdf_cond : "contA_EMAA2eq0andEMAA1eq0andEMAA0eq1";
+                        rise_constraint(SRAM_4096_32_clk_setup_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "1.024, 1.024, 1.024, 1.024, 1.024, 1.024, 1.024", \
+                          "1.024, 1.024, 1.024, 1.024, 1.024, 1.024, 1.024", \
+                          "1.024, 1.024, 1.024, 1.024, 1.024, 1.024, 1.024", \
+                          "1.024, 1.024, 1.024, 1.024, 1.024, 1.024, 1.024", \
+                          "1.024, 1.024, 1.024, 1.024, 1.024, 1.024, 1.024", \
+                          "1.024, 1.024, 1.024, 1.024, 1.024, 1.024, 1.024", \
+                          "1.024, 1.024, 1.024, 1.024, 1.024, 1.024, 1.024" \
+                        )
+                        }
+                 }
+                timing() {
+                        related_pin     : "CLKB" ;
+                        timing_type     : setup_rising ;
+                        when : "(!EMAA[2]) & (EMAA[1]) & (!EMAA[0])";
+                        sdf_cond : "contA_EMAA2eq0andEMAA1eq1andEMAA0eq0";
+                        rise_constraint(SRAM_4096_32_clk_setup_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "1.322, 1.322, 1.322, 1.322, 1.322, 1.322, 1.322", \
+                          "1.322, 1.322, 1.322, 1.322, 1.322, 1.322, 1.322", \
+                          "1.322, 1.322, 1.322, 1.322, 1.322, 1.322, 1.322", \
+                          "1.322, 1.322, 1.322, 1.322, 1.322, 1.322, 1.322", \
+                          "1.322, 1.322, 1.322, 1.322, 1.322, 1.322, 1.322", \
+                          "1.322, 1.322, 1.322, 1.322, 1.322, 1.322, 1.322", \
+                          "1.322, 1.322, 1.322, 1.322, 1.322, 1.322, 1.322" \
+                        )
+                        }
+                 }
+                timing() {
+                        related_pin     : "CLKB" ;
+                        timing_type     : setup_rising ;
+                        when : "(!EMAA[2]) & (EMAA[1]) & (EMAA[0])";
+                        sdf_cond : "contA_EMAA2eq0andEMAA1eq1andEMAA0eq1";
+                        rise_constraint(SRAM_4096_32_clk_setup_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "1.467, 1.467, 1.467, 1.467, 1.467, 1.467, 1.467", \
+                          "1.467, 1.467, 1.467, 1.467, 1.467, 1.467, 1.467", \
+                          "1.467, 1.467, 1.467, 1.467, 1.467, 1.467, 1.467", \
+                          "1.467, 1.467, 1.467, 1.467, 1.467, 1.467, 1.467", \
+                          "1.467, 1.467, 1.467, 1.467, 1.467, 1.467, 1.467", \
+                          "1.467, 1.467, 1.467, 1.467, 1.467, 1.467, 1.467", \
+                          "1.467, 1.467, 1.467, 1.467, 1.467, 1.467, 1.467" \
+                        )
+                        }
+                 }
+                timing() {
+                        related_pin     : "CLKB" ;
+                        timing_type     : setup_rising ;
+                        when : "(EMAA[2]) & (!EMAA[1]) & (!EMAA[0])";
+                        sdf_cond : "contA_EMAA2eq1andEMAA1eq0andEMAA0eq0";
+                        rise_constraint(SRAM_4096_32_clk_setup_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "1.799, 1.799, 1.799, 1.799, 1.799, 1.799, 1.799", \
+                          "1.799, 1.799, 1.799, 1.799, 1.799, 1.799, 1.799", \
+                          "1.799, 1.799, 1.799, 1.799, 1.799, 1.799, 1.799", \
+                          "1.799, 1.799, 1.799, 1.799, 1.799, 1.799, 1.799", \
+                          "1.799, 1.799, 1.799, 1.799, 1.799, 1.799, 1.799", \
+                          "1.799, 1.799, 1.799, 1.799, 1.799, 1.799, 1.799", \
+                          "1.799, 1.799, 1.799, 1.799, 1.799, 1.799, 1.799" \
+                        )
+                        }
+                 }
+                timing() {
+                        related_pin     : "CLKB" ;
+                        timing_type     : setup_rising ;
+                        when : "(EMAA[2]) & (!EMAA[1]) & (EMAA[0])";
+                        sdf_cond : "contA_EMAA2eq1andEMAA1eq0andEMAA0eq1";
+                        rise_constraint(SRAM_4096_32_clk_setup_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "2.003, 2.003, 2.003, 2.003, 2.003, 2.003, 2.003", \
+                          "2.003, 2.003, 2.003, 2.003, 2.003, 2.003, 2.003", \
+                          "2.003, 2.003, 2.003, 2.003, 2.003, 2.003, 2.003", \
+                          "2.003, 2.003, 2.003, 2.003, 2.003, 2.003, 2.003", \
+                          "2.003, 2.003, 2.003, 2.003, 2.003, 2.003, 2.003", \
+                          "2.003, 2.003, 2.003, 2.003, 2.003, 2.003, 2.003", \
+                          "2.003, 2.003, 2.003, 2.003, 2.003, 2.003, 2.003" \
+                        )
+                        }
+                 }
+                timing() {
+                        related_pin     : "CLKB" ;
+                        timing_type     : setup_rising ;
+                        when : "(EMAA[2]) & (EMAA[1]) & (!EMAA[0])";
+                        sdf_cond : "contA_EMAA2eq1andEMAA1eq1andEMAA0eq0";
+                        rise_constraint(SRAM_4096_32_clk_setup_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "2.159, 2.159, 2.159, 2.159, 2.159, 2.159, 2.159", \
+                          "2.159, 2.159, 2.159, 2.159, 2.159, 2.159, 2.159", \
+                          "2.159, 2.159, 2.159, 2.159, 2.159, 2.159, 2.159", \
+                          "2.159, 2.159, 2.159, 2.159, 2.159, 2.159, 2.159", \
+                          "2.159, 2.159, 2.159, 2.159, 2.159, 2.159, 2.159", \
+                          "2.159, 2.159, 2.159, 2.159, 2.159, 2.159, 2.159", \
+                          "2.159, 2.159, 2.159, 2.159, 2.159, 2.159, 2.159" \
+                        )
+                        }
+                 }
+                timing() {
+                        related_pin     : "CLKB" ;
+                        timing_type     : setup_rising ;
+                        when : "(EMAA[2]) & (EMAA[1]) & (EMAA[0])";
+                        sdf_cond : "contA_EMAA2eq1andEMAA1eq1andEMAA0eq1";
+                        rise_constraint(SRAM_4096_32_clk_setup_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "2.306, 2.306, 2.306, 2.306, 2.306, 2.306, 2.306", \
+                          "2.306, 2.306, 2.306, 2.306, 2.306, 2.306, 2.306", \
+                          "2.306, 2.306, 2.306, 2.306, 2.306, 2.306, 2.306", \
+                          "2.306, 2.306, 2.306, 2.306, 2.306, 2.306, 2.306", \
+                          "2.306, 2.306, 2.306, 2.306, 2.306, 2.306, 2.306", \
+                          "2.306, 2.306, 2.306, 2.306, 2.306, 2.306, 2.306", \
+                          "2.306, 2.306, 2.306, 2.306, 2.306, 2.306, 2.306" \
+                        )
+                        }
+                 }
+                min_pulse_width_high : 0.101 ;
+                min_pulse_width_low  : 0.401 ;
+                min_period           : 1.929 ;
+
+                minimum_period(){
+                  constraint : 1.325 ;
+                  when : "(!EMAA[2]) & (!EMAA[1]) & (!EMAA[0])";
+                  sdf_cond : "EMAA2eq0andEMAA1eq0andEMAA0eq0";
+                }
+                minimum_period(){
+                  constraint : 1.486 ;
+                  when : "(!EMAA[2]) & (!EMAA[1]) & (EMAA[0])";
+                  sdf_cond : "EMAA2eq0andEMAA1eq0andEMAA0eq1";
+                }
+                minimum_period(){
+                  constraint : 1.784 ;
+                  when : "(!EMAA[2]) & (EMAA[1]) & (!EMAA[0])";
+                  sdf_cond : "EMAA2eq0andEMAA1eq1andEMAA0eq0";
+                }
+                minimum_period(){
+                  constraint : 1.929 ;
+                  when : "(!EMAA[2]) & (EMAA[1]) & (EMAA[0])";
+                  sdf_cond : "EMAA2eq0andEMAA1eq1andEMAA0eq1";
+                }
+                minimum_period(){
+                  constraint : 999.000 ;
+                  when : "(EMAA[2]) & (!EMAA[1]) & (!EMAA[0])";
+                  sdf_cond : "EMAA2eq1andEMAA1eq0andEMAA0eq0";
+                }
+                minimum_period(){
+                  constraint : 999.001 ;
+                  when : "(EMAA[2]) & (!EMAA[1]) & (EMAA[0])";
+                  sdf_cond : "EMAA2eq1andEMAA1eq0andEMAA0eq1";
+                }
+                minimum_period(){
+                  constraint : 999.002 ;
+                  when : "(EMAA[2]) & (EMAA[1]) & (!EMAA[0])";
+                  sdf_cond : "EMAA2eq1andEMAA1eq1andEMAA0eq0";
+                }
+                minimum_period(){
+                  constraint : 999.003 ;
+                  when : "(EMAA[2]) & (EMAA[1]) & (EMAA[0])";
+                  sdf_cond : "EMAA2eq1andEMAA1eq1andEMAA0eq1";
+                }
+
+                internal_power(){
+                        when : "(!CENA & ! \
+                                 (WENA[0] & \
+                                  WENA[1] & \
+                                  WENA[2] & \
+                                  WENA[3])  \
+                                ) \
+                                 &  (!EMAA[2]) & (!EMAA[1]) & (!EMAA[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("13.764, 13.765, 13.767, 13.771, 13.783, 13.803, 13.823")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENA & ! \
+                                 (WENA[0] & \
+                                  WENA[1] & \
+                                  WENA[2] & \
+                                  WENA[3])  \
+                                ) \
+                                 &  (!EMAA[2]) & (!EMAA[1]) & (EMAA[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("13.834, 13.835, 13.837, 13.841, 13.853, 13.873, 13.893")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENA & ! \
+                                 (WENA[0] & \
+                                  WENA[1] & \
+                                  WENA[2] & \
+                                  WENA[3])  \
+                                ) \
+                                 &  (!EMAA[2]) & (EMAA[1]) & (!EMAA[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("14.027, 14.029, 14.031, 14.035, 14.047, 14.067, 14.087")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENA & ! \
+                                 (WENA[0] & \
+                                  WENA[1] & \
+                                  WENA[2] & \
+                                  WENA[3])  \
+                                ) \
+                                 &  (!EMAA[2]) & (EMAA[1]) & (EMAA[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("14.092, 14.094, 14.096, 14.100, 14.112, 14.132, 14.152")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENA & ! \
+                                 (WENA[0] & \
+                                  WENA[1] & \
+                                  WENA[2] & \
+                                  WENA[3])  \
+                                ) \
+                                 &  (EMAA[2]) & (!EMAA[1]) & (!EMAA[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("14.369, 14.371, 14.373, 14.377, 14.388, 14.408, 14.428")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENA & ! \
+                                 (WENA[0] & \
+                                  WENA[1] & \
+                                  WENA[2] & \
+                                  WENA[3])  \
+                                ) \
+                                 &  (EMAA[2]) & (!EMAA[1]) & (EMAA[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("14.526, 14.528, 14.529, 14.533, 14.545, 14.565, 14.585")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENA & ! \
+                                 (WENA[0] & \
+                                  WENA[1] & \
+                                  WENA[2] & \
+                                  WENA[3])  \
+                                ) \
+                                 &  (EMAA[2]) & (EMAA[1]) & (!EMAA[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("14.714, 14.716, 14.718, 14.722, 14.734, 14.754, 14.773")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENA & ! \
+                                 (WENA[0] & \
+                                  WENA[1] & \
+                                  WENA[2] & \
+                                  WENA[3])  \
+                                ) \
+                                 &  (EMAA[2]) & (EMAA[1]) & (EMAA[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("14.863, 14.865, 14.867, 14.871, 14.883, 14.903, 14.923")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENA & \
+                                 (WENA[0] & \
+                                  WENA[1] & \
+                                  WENA[2] & \
+                                  WENA[3])  \
+                                ) \
+                                 &  (!EMAA[2]) & (!EMAA[1]) & (!EMAA[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("11.423, 11.425, 11.427, 11.431, 11.443, 11.462, 11.482")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENA & \
+                                 (WENA[0] & \
+                                  WENA[1] & \
+                                  WENA[2] & \
+                                  WENA[3])  \
+                                ) \
+                                 &  (!EMAA[2]) & (!EMAA[1]) & (EMAA[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("11.411, 11.413, 11.415, 11.419, 11.431, 11.451, 11.471")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENA & \
+                                 (WENA[0] & \
+                                  WENA[1] & \
+                                  WENA[2] & \
+                                  WENA[3])  \
+                                ) \
+                                 &  (!EMAA[2]) & (EMAA[1]) & (!EMAA[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("11.415, 11.417, 11.419, 11.423, 11.435, 11.455, 11.475")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENA & \
+                                 (WENA[0] & \
+                                  WENA[1] & \
+                                  WENA[2] & \
+                                  WENA[3])  \
+                                ) \
+                                 &  (!EMAA[2]) & (EMAA[1]) & (EMAA[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("11.423, 11.425, 11.427, 11.431, 11.443, 11.463, 11.483")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENA & \
+                                 (WENA[0] & \
+                                  WENA[1] & \
+                                  WENA[2] & \
+                                  WENA[3])  \
+                                ) \
+                                 &  (EMAA[2]) & (!EMAA[1]) & (!EMAA[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("11.412, 11.414, 11.416, 11.420, 11.432, 11.451, 11.471")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENA & \
+                                 (WENA[0] & \
+                                  WENA[1] & \
+                                  WENA[2] & \
+                                  WENA[3])  \
+                                ) \
+                                 &  (EMAA[2]) & (!EMAA[1]) & (EMAA[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("11.407, 11.409, 11.411, 11.415, 11.427, 11.447, 11.467")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENA & \
+                                 (WENA[0] & \
+                                  WENA[1] & \
+                                  WENA[2] & \
+                                  WENA[3])  \
+                                ) \
+                                 &  (EMAA[2]) & (EMAA[1]) & (!EMAA[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("11.417, 11.419, 11.421, 11.425, 11.437, 11.457, 11.477")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENA & \
+                                 (WENA[0] & \
+                                  WENA[1] & \
+                                  WENA[2] & \
+                                  WENA[3])  \
+                                ) \
+                                 &  (EMAA[2]) & (EMAA[1]) & (EMAA[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("11.409, 11.411, 11.413, 11.417, 11.429, 11.449, 11.469")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+         internal_power(){
+                 when : "(CENA)";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+        }
+
+        pin(CENA)   {
+                direction : input;
+                capacitance : 0.043;
+                timing() {
+                        related_pin     : CLKA;
+                        timing_type     : setup_rising ;
+                        rise_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.245, 0.244, 0.243, 0.242, 0.237, 0.230, 0.223", \
+                          "0.245, 0.245, 0.244, 0.243, 0.238, 0.231, 0.224", \
+                          "0.246, 0.246, 0.245, 0.244, 0.239, 0.232, 0.225", \
+                          "0.248, 0.247, 0.247, 0.245, 0.241, 0.234, 0.227", \
+                          "0.254, 0.253, 0.252, 0.251, 0.247, 0.239, 0.232", \
+                          "0.263, 0.262, 0.261, 0.260, 0.256, 0.249, 0.241", \
+                          "0.272, 0.271, 0.271, 0.269, 0.265, 0.258, 0.251" \
+                        )
+                        }
+                        fall_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.359, 0.362, 0.365, 0.371, 0.389, 0.420, 0.450", \
+                          "0.360, 0.363, 0.366, 0.372, 0.390, 0.420, 0.451", \
+                          "0.361, 0.364, 0.367, 0.373, 0.391, 0.421, 0.452", \
+                          "0.363, 0.366, 0.368, 0.374, 0.393, 0.423, 0.453", \
+                          "0.368, 0.371, 0.374, 0.380, 0.398, 0.429, 0.459", \
+                          "0.377, 0.380, 0.383, 0.389, 0.407, 0.438, 0.468", \
+                          "0.387, 0.389, 0.392, 0.398, 0.417, 0.447, 0.477" \
+                        )
+                        }
+                } 
+                timing() {
+                        related_pin     : CLKA;
+                        timing_type     : hold_rising ;
+                        rise_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000" \
+                        )
+                        }
+                        fall_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000" \
+                        )
+                        }
+               }
+                internal_power(){
+                        rise_power(SRAM_4096_32_energy_template_sigslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.053, 0.053, 0.053, 0.053, 0.053, 0.054, 0.054")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_sigslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.053, 0.053, 0.053, 0.053, 0.053, 0.053, 0.054")
+                        }
+                }
+        }
+        bus(WENA)   {
+                bus_type : SRAM_4096_32_WRITE;
+                direction : input;
+                capacitance : 0.023;
+                timing() {
+                        related_pin     : CLKA;
+                        timing_type     : setup_rising ;
+                        rise_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.332, 0.332, 0.332, 0.331, 0.331, 0.330, 0.330", \
+                          "0.333, 0.332, 0.332, 0.332, 0.332, 0.331, 0.330", \
+                          "0.333, 0.333, 0.333, 0.333, 0.333, 0.332, 0.331", \
+                          "0.335, 0.335, 0.335, 0.335, 0.335, 0.334, 0.333", \
+                          "0.341, 0.341, 0.341, 0.340, 0.340, 0.339, 0.339", \
+                          "0.350, 0.350, 0.350, 0.350, 0.349, 0.349, 0.348", \
+                          "0.359, 0.359, 0.359, 0.359, 0.358, 0.358, 0.357" \
+                        )
+                        }
+                        fall_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.247, 0.249, 0.251, 0.255, 0.268, 0.290, 0.312", \
+                          "0.248, 0.250, 0.252, 0.256, 0.269, 0.291, 0.313", \
+                          "0.248, 0.250, 0.253, 0.257, 0.270, 0.292, 0.314", \
+                          "0.250, 0.252, 0.254, 0.259, 0.272, 0.294, 0.316", \
+                          "0.256, 0.258, 0.260, 0.264, 0.278, 0.300, 0.322", \
+                          "0.265, 0.267, 0.269, 0.273, 0.287, 0.309, 0.331", \
+                          "0.274, 0.276, 0.278, 0.283, 0.296, 0.318, 0.340" \
+                        )
+                        }
+                } 
+                timing() {
+                        related_pin     : CLKA;
+                        timing_type     : hold_rising ;
+                        rise_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000" \
+                        )
+                        }
+                        fall_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000" \
+                        )
+                        }
+               }
+                internal_power(){
+                        rise_power(SRAM_4096_32_energy_template_sigslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.486, 0.486, 0.486, 0.486, 0.487, 0.487, 0.488")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_sigslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.406, 0.406, 0.406, 0.407, 0.407, 0.408, 0.409")
+                        }
+                }
+        }
+        bus(AA)   {
+                bus_type : SRAM_4096_32_ADDRESS;
+                direction : input;
+                capacitance : 0.060;
+                timing() {
+                        related_pin     : CLKA;
+                        timing_type     : setup_rising ;
+                        rise_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.582, 0.583, 0.584, 0.587, 0.593, 0.604, 0.616", \
+                          "0.583, 0.584, 0.585, 0.587, 0.594, 0.605, 0.617", \
+                          "0.584, 0.585, 0.586, 0.588, 0.595, 0.606, 0.617", \
+                          "0.586, 0.587, 0.588, 0.590, 0.597, 0.608, 0.619", \
+                          "0.591, 0.592, 0.593, 0.596, 0.602, 0.614, 0.625", \
+                          "0.600, 0.601, 0.603, 0.605, 0.612, 0.623, 0.634", \
+                          "0.610, 0.611, 0.612, 0.614, 0.621, 0.632, 0.643" \
+                        )
+                        }
+                        fall_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.370, 0.371, 0.372, 0.374, 0.381, 0.392, 0.402", \
+                          "0.371, 0.372, 0.373, 0.375, 0.382, 0.392, 0.403", \
+                          "0.372, 0.373, 0.374, 0.376, 0.383, 0.393, 0.404", \
+                          "0.374, 0.375, 0.376, 0.378, 0.384, 0.395, 0.406", \
+                          "0.379, 0.380, 0.381, 0.384, 0.390, 0.401, 0.411", \
+                          "0.389, 0.390, 0.391, 0.393, 0.399, 0.410, 0.420", \
+                          "0.398, 0.399, 0.400, 0.402, 0.408, 0.419, 0.430" \
+                        )
+                        }
+                } 
+                timing() {
+                        related_pin     : CLKA;
+                        timing_type     : hold_rising ;
+                        rise_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.006, 0.005, 0.004, 0.002, 0.000, 0.000, 0.000", \
+                          "0.006, 0.005, 0.004, 0.001, 0.000, 0.000, 0.000", \
+                          "0.005, 0.004, 0.003, 0.000, 0.000, 0.000, 0.000", \
+                          "0.003, 0.002, 0.001, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000" \
+                        )
+                        }
+                        fall_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000" \
+                        )
+                        }
+               }
+                internal_power(){
+                        rise_power(SRAM_4096_32_energy_template_sigslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.042, 0.042, 0.042, 0.043, 0.044, 0.046, 0.048")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_sigslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.043, 0.043, 0.043, 0.044, 0.045, 0.046, 0.048")
+                        }
+                }
+        }
+        bus(DA)   {
+                bus_type : SRAM_4096_32_DATA;
+                memory_write() {
+                        address : AA;
+                        clocked_on : "CLKA";
+                }
+                direction : input;
+                capacitance : 0.025;
+                timing() {
+                        related_pin     : CLKA;
+                        timing_type     : setup_rising ;
+                        rise_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.184, 0.185, 0.185, 0.185, 0.187, 0.189, 0.192", \
+                          "0.185, 0.186, 0.186, 0.186, 0.188, 0.190, 0.193", \
+                          "0.186, 0.186, 0.187, 0.187, 0.189, 0.191, 0.194", \
+                          "0.188, 0.188, 0.189, 0.189, 0.190, 0.193, 0.195", \
+                          "0.194, 0.194, 0.194, 0.195, 0.196, 0.198, 0.201", \
+                          "0.203, 0.203, 0.203, 0.204, 0.205, 0.208, 0.210", \
+                          "0.212, 0.212, 0.212, 0.213, 0.214, 0.217, 0.219" \
+                        )
+                        }
+                        fall_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.182, 0.185, 0.187, 0.192, 0.206, 0.230, 0.254", \
+                          "0.183, 0.185, 0.188, 0.192, 0.207, 0.231, 0.254", \
+                          "0.184, 0.186, 0.189, 0.193, 0.208, 0.231, 0.255", \
+                          "0.186, 0.188, 0.190, 0.195, 0.209, 0.233, 0.257", \
+                          "0.191, 0.194, 0.196, 0.201, 0.215, 0.239, 0.263", \
+                          "0.201, 0.203, 0.205, 0.210, 0.224, 0.248, 0.272", \
+                          "0.210, 0.212, 0.214, 0.219, 0.233, 0.257, 0.281" \
+                        )
+                        }
+                } 
+                timing() {
+                        related_pin     : CLKA;
+                        timing_type     : hold_rising ;
+                        rise_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000" \
+                        )
+                        }
+                        fall_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000" \
+                        )
+                        }
+               }
+                internal_power(){
+                        when : "(! \
+                                 (WENA[0] & \
+                                  WENA[1] & \
+                                  WENA[2] & \
+                                  WENA[3])  \
+                                )";
+                        rise_power(SRAM_4096_32_energy_template_sigslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.003, 0.003, 0.003, 0.003, 0.003, 0.004, 0.004")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_sigslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.002, 0.003, 0.003, 0.003, 0.003, 0.004, 0.004")
+                        }
+                }
+                internal_power(){
+                        when : " \
+                                 (WENA[0] & \
+                                  WENA[1] & \
+                                  WENA[2] & \
+                                  WENA[3])  \
+                               ";
+                        rise_power(SRAM_4096_32_energy_template_sigslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.001, 0.001, 0.001, 0.001, 0.001, 0.002, 0.002")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_sigslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.001, 0.001, 0.001, 0.001, 0.001, 0.002, 0.002")
+                        }
+                }
+        }
+        pin(CLKB)   {
+		direction : input;
+		capacitance : 0.111;
+                clock : true;
+                max_transition : 1.000;
+                timing() {
+                        related_pin     : "CLKA" ;
+                        timing_type     : setup_rising ;
+                        when : "(!EMAB[2]) & (!EMAB[1]) & (!EMAB[0])";
+                        sdf_cond : "contB_EMAB2eq0andEMAB1eq0andEMAB0eq0";
+                        rise_constraint(SRAM_4096_32_clk_setup_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.861, 0.861, 0.861, 0.861, 0.861, 0.861, 0.861", \
+                          "0.861, 0.861, 0.861, 0.861, 0.861, 0.861, 0.861", \
+                          "0.861, 0.861, 0.861, 0.861, 0.861, 0.861, 0.861", \
+                          "0.861, 0.861, 0.861, 0.861, 0.861, 0.861, 0.861", \
+                          "0.861, 0.861, 0.861, 0.861, 0.861, 0.861, 0.861", \
+                          "0.861, 0.861, 0.861, 0.861, 0.861, 0.861, 0.861", \
+                          "0.861, 0.861, 0.861, 0.861, 0.861, 0.861, 0.861" \
+                        )
+                        }
+                 }
+                timing() {
+                        related_pin     : "CLKA" ;
+                        timing_type     : setup_rising ;
+                        when : "(!EMAB[2]) & (!EMAB[1]) & (EMAB[0])";
+                        sdf_cond : "contB_EMAB2eq0andEMAB1eq0andEMAB0eq1";
+                        rise_constraint(SRAM_4096_32_clk_setup_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "1.022, 1.022, 1.022, 1.022, 1.022, 1.022, 1.022", \
+                          "1.022, 1.022, 1.022, 1.022, 1.022, 1.022, 1.022", \
+                          "1.022, 1.022, 1.022, 1.022, 1.022, 1.022, 1.022", \
+                          "1.022, 1.022, 1.022, 1.022, 1.022, 1.022, 1.022", \
+                          "1.022, 1.022, 1.022, 1.022, 1.022, 1.022, 1.022", \
+                          "1.022, 1.022, 1.022, 1.022, 1.022, 1.022, 1.022", \
+                          "1.022, 1.022, 1.022, 1.022, 1.022, 1.022, 1.022" \
+                        )
+                        }
+                 }
+                timing() {
+                        related_pin     : "CLKA" ;
+                        timing_type     : setup_rising ;
+                        when : "(!EMAB[2]) & (EMAB[1]) & (!EMAB[0])";
+                        sdf_cond : "contB_EMAB2eq0andEMAB1eq1andEMAB0eq0";
+                        rise_constraint(SRAM_4096_32_clk_setup_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "1.320, 1.320, 1.320, 1.320, 1.320, 1.320, 1.320", \
+                          "1.320, 1.320, 1.320, 1.320, 1.320, 1.320, 1.320", \
+                          "1.320, 1.320, 1.320, 1.320, 1.320, 1.320, 1.320", \
+                          "1.320, 1.320, 1.320, 1.320, 1.320, 1.320, 1.320", \
+                          "1.320, 1.320, 1.320, 1.320, 1.320, 1.320, 1.320", \
+                          "1.320, 1.320, 1.320, 1.320, 1.320, 1.320, 1.320", \
+                          "1.320, 1.320, 1.320, 1.320, 1.320, 1.320, 1.320" \
+                        )
+                        }
+                 }
+                timing() {
+                        related_pin     : "CLKA" ;
+                        timing_type     : setup_rising ;
+                        when : "(!EMAB[2]) & (EMAB[1]) & (EMAB[0])";
+                        sdf_cond : "contB_EMAB2eq0andEMAB1eq1andEMAB0eq1";
+                        rise_constraint(SRAM_4096_32_clk_setup_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "1.465, 1.465, 1.465, 1.465, 1.465, 1.465, 1.465", \
+                          "1.465, 1.465, 1.465, 1.465, 1.465, 1.465, 1.465", \
+                          "1.465, 1.465, 1.465, 1.465, 1.465, 1.465, 1.465", \
+                          "1.465, 1.465, 1.465, 1.465, 1.465, 1.465, 1.465", \
+                          "1.465, 1.465, 1.465, 1.465, 1.465, 1.465, 1.465", \
+                          "1.465, 1.465, 1.465, 1.465, 1.465, 1.465, 1.465", \
+                          "1.465, 1.465, 1.465, 1.465, 1.465, 1.465, 1.465" \
+                        )
+                        }
+                 }
+                timing() {
+                        related_pin     : "CLKA" ;
+                        timing_type     : setup_rising ;
+                        when : "(EMAB[2]) & (!EMAB[1]) & (!EMAB[0])";
+                        sdf_cond : "contB_EMAB2eq1andEMAB1eq0andEMAB0eq0";
+                        rise_constraint(SRAM_4096_32_clk_setup_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "1.796, 1.796, 1.796, 1.796, 1.796, 1.796, 1.796", \
+                          "1.796, 1.796, 1.796, 1.796, 1.796, 1.796, 1.796", \
+                          "1.796, 1.796, 1.796, 1.796, 1.796, 1.796, 1.796", \
+                          "1.796, 1.796, 1.796, 1.796, 1.796, 1.796, 1.796", \
+                          "1.796, 1.796, 1.796, 1.796, 1.796, 1.796, 1.796", \
+                          "1.796, 1.796, 1.796, 1.796, 1.796, 1.796, 1.796", \
+                          "1.796, 1.796, 1.796, 1.796, 1.796, 1.796, 1.796" \
+                        )
+                        }
+                 }
+                timing() {
+                        related_pin     : "CLKA" ;
+                        timing_type     : setup_rising ;
+                        when : "(EMAB[2]) & (!EMAB[1]) & (EMAB[0])";
+                        sdf_cond : "contB_EMAB2eq1andEMAB1eq0andEMAB0eq1";
+                        rise_constraint(SRAM_4096_32_clk_setup_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "2.001, 2.001, 2.001, 2.001, 2.001, 2.001, 2.001", \
+                          "2.001, 2.001, 2.001, 2.001, 2.001, 2.001, 2.001", \
+                          "2.001, 2.001, 2.001, 2.001, 2.001, 2.001, 2.001", \
+                          "2.001, 2.001, 2.001, 2.001, 2.001, 2.001, 2.001", \
+                          "2.001, 2.001, 2.001, 2.001, 2.001, 2.001, 2.001", \
+                          "2.001, 2.001, 2.001, 2.001, 2.001, 2.001, 2.001", \
+                          "2.001, 2.001, 2.001, 2.001, 2.001, 2.001, 2.001" \
+                        )
+                        }
+                 }
+                timing() {
+                        related_pin     : "CLKA" ;
+                        timing_type     : setup_rising ;
+                        when : "(EMAB[2]) & (EMAB[1]) & (!EMAB[0])";
+                        sdf_cond : "contB_EMAB2eq1andEMAB1eq1andEMAB0eq0";
+                        rise_constraint(SRAM_4096_32_clk_setup_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "2.156, 2.156, 2.156, 2.156, 2.156, 2.156, 2.156", \
+                          "2.156, 2.156, 2.156, 2.156, 2.156, 2.156, 2.156", \
+                          "2.156, 2.156, 2.156, 2.156, 2.156, 2.156, 2.156", \
+                          "2.156, 2.156, 2.156, 2.156, 2.156, 2.156, 2.156", \
+                          "2.156, 2.156, 2.156, 2.156, 2.156, 2.156, 2.156", \
+                          "2.156, 2.156, 2.156, 2.156, 2.156, 2.156, 2.156", \
+                          "2.156, 2.156, 2.156, 2.156, 2.156, 2.156, 2.156" \
+                        )
+                        }
+                 }
+                timing() {
+                        related_pin     : "CLKA" ;
+                        timing_type     : setup_rising ;
+                        when : "(EMAB[2]) & (EMAB[1]) & (EMAB[0])";
+                        sdf_cond : "contB_EMAB2eq1andEMAB1eq1andEMAB0eq1";
+                        rise_constraint(SRAM_4096_32_clk_setup_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "2.303, 2.303, 2.303, 2.303, 2.303, 2.303, 2.303", \
+                          "2.303, 2.303, 2.303, 2.303, 2.303, 2.303, 2.303", \
+                          "2.303, 2.303, 2.303, 2.303, 2.303, 2.303, 2.303", \
+                          "2.303, 2.303, 2.303, 2.303, 2.303, 2.303, 2.303", \
+                          "2.303, 2.303, 2.303, 2.303, 2.303, 2.303, 2.303", \
+                          "2.303, 2.303, 2.303, 2.303, 2.303, 2.303, 2.303", \
+                          "2.303, 2.303, 2.303, 2.303, 2.303, 2.303, 2.303" \
+                        )
+                        }
+                 }
+                min_pulse_width_high : 0.101 ;
+                min_pulse_width_low  : 0.401 ;
+                min_period           : 1.929 ;
+
+                minimum_period(){
+                  constraint : 1.325 ;
+                  when : "(!EMAB[2]) & (!EMAB[1]) & (!EMAB[0])";
+                  sdf_cond : "EMAB2eq0andEMAB1eq0andEMAB0eq0";
+                }
+                minimum_period(){
+                  constraint : 1.486 ;
+                  when : "(!EMAB[2]) & (!EMAB[1]) & (EMAB[0])";
+                  sdf_cond : "EMAB2eq0andEMAB1eq0andEMAB0eq1";
+                }
+                minimum_period(){
+                  constraint : 1.784 ;
+                  when : "(!EMAB[2]) & (EMAB[1]) & (!EMAB[0])";
+                  sdf_cond : "EMAB2eq0andEMAB1eq1andEMAB0eq0";
+                }
+                minimum_period(){
+                  constraint : 1.929 ;
+                  when : "(!EMAB[2]) & (EMAB[1]) & (EMAB[0])";
+                  sdf_cond : "EMAB2eq0andEMAB1eq1andEMAB0eq1";
+                }
+                minimum_period(){
+                  constraint : 999.000 ;
+                  when : "(EMAB[2]) & (!EMAB[1]) & (!EMAB[0])";
+                  sdf_cond : "EMAB2eq1andEMAB1eq0andEMAB0eq0";
+                }
+                minimum_period(){
+                  constraint : 999.001 ;
+                  when : "(EMAB[2]) & (!EMAB[1]) & (EMAB[0])";
+                  sdf_cond : "EMAB2eq1andEMAB1eq0andEMAB0eq1";
+                }
+                minimum_period(){
+                  constraint : 999.002 ;
+                  when : "(EMAB[2]) & (EMAB[1]) & (!EMAB[0])";
+                  sdf_cond : "EMAB2eq1andEMAB1eq1andEMAB0eq0";
+                }
+                minimum_period(){
+                  constraint : 999.003 ;
+                  when : "(EMAB[2]) & (EMAB[1]) & (EMAB[0])";
+                  sdf_cond : "EMAB2eq1andEMAB1eq1andEMAB0eq1";
+                }
+
+                internal_power(){
+                        when : "(!CENB & ! \
+                                 (WENB[0] & \
+                                  WENB[1] & \
+                                  WENB[2] & \
+                                  WENB[3])  \
+                                ) \
+                                 &  (!EMAB[2]) & (!EMAB[1]) & (!EMAB[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("13.764, 13.765, 13.767, 13.771, 13.783, 13.803, 13.823")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENB & ! \
+                                 (WENB[0] & \
+                                  WENB[1] & \
+                                  WENB[2] & \
+                                  WENB[3])  \
+                                ) \
+                                 &  (!EMAB[2]) & (!EMAB[1]) & (EMAB[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("13.834, 13.835, 13.837, 13.841, 13.853, 13.873, 13.893")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENB & ! \
+                                 (WENB[0] & \
+                                  WENB[1] & \
+                                  WENB[2] & \
+                                  WENB[3])  \
+                                ) \
+                                 &  (!EMAB[2]) & (EMAB[1]) & (!EMAB[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("14.027, 14.029, 14.031, 14.035, 14.047, 14.067, 14.087")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENB & ! \
+                                 (WENB[0] & \
+                                  WENB[1] & \
+                                  WENB[2] & \
+                                  WENB[3])  \
+                                ) \
+                                 &  (!EMAB[2]) & (EMAB[1]) & (EMAB[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("14.092, 14.094, 14.096, 14.100, 14.112, 14.132, 14.152")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENB & ! \
+                                 (WENB[0] & \
+                                  WENB[1] & \
+                                  WENB[2] & \
+                                  WENB[3])  \
+                                ) \
+                                 &  (EMAB[2]) & (!EMAB[1]) & (!EMAB[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("14.369, 14.371, 14.373, 14.377, 14.388, 14.408, 14.428")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENB & ! \
+                                 (WENB[0] & \
+                                  WENB[1] & \
+                                  WENB[2] & \
+                                  WENB[3])  \
+                                ) \
+                                 &  (EMAB[2]) & (!EMAB[1]) & (EMAB[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("14.526, 14.528, 14.529, 14.533, 14.545, 14.565, 14.585")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENB & ! \
+                                 (WENB[0] & \
+                                  WENB[1] & \
+                                  WENB[2] & \
+                                  WENB[3])  \
+                                ) \
+                                 &  (EMAB[2]) & (EMAB[1]) & (!EMAB[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("14.714, 14.716, 14.718, 14.722, 14.734, 14.754, 14.773")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENB & ! \
+                                 (WENB[0] & \
+                                  WENB[1] & \
+                                  WENB[2] & \
+                                  WENB[3])  \
+                                ) \
+                                 &  (EMAB[2]) & (EMAB[1]) & (EMAB[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("14.863, 14.865, 14.867, 14.871, 14.883, 14.903, 14.923")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENB & \
+                                 (WENB[0] & \
+                                  WENB[1] & \
+                                  WENB[2] & \
+                                  WENB[3])  \
+                                ) \
+                                 &  (!EMAB[2]) & (!EMAB[1]) & (!EMAB[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("11.423, 11.425, 11.427, 11.431, 11.443, 11.462, 11.482")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENB & \
+                                 (WENB[0] & \
+                                  WENB[1] & \
+                                  WENB[2] & \
+                                  WENB[3])  \
+                                ) \
+                                 &  (!EMAB[2]) & (!EMAB[1]) & (EMAB[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("11.411, 11.413, 11.415, 11.419, 11.431, 11.451, 11.471")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENB & \
+                                 (WENB[0] & \
+                                  WENB[1] & \
+                                  WENB[2] & \
+                                  WENB[3])  \
+                                ) \
+                                 &  (!EMAB[2]) & (EMAB[1]) & (!EMAB[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("11.415, 11.417, 11.419, 11.423, 11.435, 11.455, 11.475")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENB & \
+                                 (WENB[0] & \
+                                  WENB[1] & \
+                                  WENB[2] & \
+                                  WENB[3])  \
+                                ) \
+                                 &  (!EMAB[2]) & (EMAB[1]) & (EMAB[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("11.423, 11.425, 11.427, 11.431, 11.443, 11.463, 11.483")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENB & \
+                                 (WENB[0] & \
+                                  WENB[1] & \
+                                  WENB[2] & \
+                                  WENB[3])  \
+                                ) \
+                                 &  (EMAB[2]) & (!EMAB[1]) & (!EMAB[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("11.412, 11.414, 11.416, 11.420, 11.432, 11.451, 11.471")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENB & \
+                                 (WENB[0] & \
+                                  WENB[1] & \
+                                  WENB[2] & \
+                                  WENB[3])  \
+                                ) \
+                                 &  (EMAB[2]) & (!EMAB[1]) & (EMAB[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("11.407, 11.409, 11.411, 11.415, 11.427, 11.447, 11.467")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENB & \
+                                 (WENB[0] & \
+                                  WENB[1] & \
+                                  WENB[2] & \
+                                  WENB[3])  \
+                                ) \
+                                 &  (EMAB[2]) & (EMAB[1]) & (!EMAB[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("11.417, 11.419, 11.421, 11.425, 11.437, 11.457, 11.477")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+                internal_power(){
+                        when : "(!CENB & \
+                                 (WENB[0] & \
+                                  WENB[1] & \
+                                  WENB[2] & \
+                                  WENB[3])  \
+                                ) \
+                                 &  (EMAB[2]) & (EMAB[1]) & (EMAB[0]) ";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("11.409, 11.411, 11.413, 11.417, 11.429, 11.449, 11.469")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+         internal_power(){
+                 when : "(CENB)";
+                        rise_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_clkslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.255, 0.257, 0.259, 0.263, 0.274, 0.294, 0.314")
+                        }
+                }
+        }
+
+        pin(CENB)   {
+                direction : input;
+                capacitance : 0.043;
+                timing() {
+                        related_pin     : CLKB;
+                        timing_type     : setup_rising ;
+                        rise_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.245, 0.244, 0.243, 0.242, 0.237, 0.230, 0.223", \
+                          "0.245, 0.245, 0.244, 0.243, 0.238, 0.231, 0.224", \
+                          "0.246, 0.246, 0.245, 0.244, 0.239, 0.232, 0.225", \
+                          "0.248, 0.247, 0.247, 0.245, 0.241, 0.234, 0.227", \
+                          "0.254, 0.253, 0.252, 0.251, 0.247, 0.239, 0.232", \
+                          "0.263, 0.262, 0.261, 0.260, 0.256, 0.249, 0.241", \
+                          "0.272, 0.271, 0.271, 0.269, 0.265, 0.258, 0.251" \
+                        )
+                        }
+                        fall_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.359, 0.362, 0.365, 0.371, 0.389, 0.420, 0.450", \
+                          "0.360, 0.363, 0.366, 0.372, 0.390, 0.420, 0.451", \
+                          "0.361, 0.364, 0.367, 0.373, 0.391, 0.421, 0.452", \
+                          "0.363, 0.366, 0.368, 0.374, 0.393, 0.423, 0.453", \
+                          "0.368, 0.371, 0.374, 0.380, 0.398, 0.429, 0.459", \
+                          "0.377, 0.380, 0.383, 0.389, 0.407, 0.438, 0.468", \
+                          "0.387, 0.389, 0.392, 0.398, 0.417, 0.447, 0.477" \
+                        )
+                        }
+                } 
+                timing() {
+                        related_pin     : CLKB;
+                        timing_type     : hold_rising ;
+                        rise_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000" \
+                        )
+                        }
+                        fall_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000" \
+                        )
+                        }
+               }
+                internal_power(){
+                        rise_power(SRAM_4096_32_energy_template_sigslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.053, 0.053, 0.053, 0.053, 0.053, 0.054, 0.054")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_sigslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.053, 0.053, 0.053, 0.053, 0.053, 0.053, 0.054")
+                        }
+                }
+        }
+        bus(WENB)   {
+                bus_type : SRAM_4096_32_WRITE;
+                direction : input;
+                capacitance : 0.023;
+                timing() {
+                        related_pin     : CLKB;
+                        timing_type     : setup_rising ;
+                        rise_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.332, 0.332, 0.332, 0.331, 0.331, 0.330, 0.330", \
+                          "0.333, 0.332, 0.332, 0.332, 0.332, 0.331, 0.330", \
+                          "0.333, 0.333, 0.333, 0.333, 0.333, 0.332, 0.331", \
+                          "0.335, 0.335, 0.335, 0.335, 0.335, 0.334, 0.333", \
+                          "0.341, 0.341, 0.341, 0.340, 0.340, 0.339, 0.339", \
+                          "0.350, 0.350, 0.350, 0.350, 0.349, 0.349, 0.348", \
+                          "0.359, 0.359, 0.359, 0.359, 0.358, 0.358, 0.357" \
+                        )
+                        }
+                        fall_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.247, 0.249, 0.251, 0.255, 0.268, 0.290, 0.312", \
+                          "0.248, 0.250, 0.252, 0.256, 0.269, 0.291, 0.313", \
+                          "0.248, 0.250, 0.253, 0.257, 0.270, 0.292, 0.314", \
+                          "0.250, 0.252, 0.254, 0.259, 0.272, 0.294, 0.316", \
+                          "0.256, 0.258, 0.260, 0.264, 0.278, 0.300, 0.322", \
+                          "0.265, 0.267, 0.269, 0.273, 0.287, 0.309, 0.331", \
+                          "0.274, 0.276, 0.278, 0.283, 0.296, 0.318, 0.340" \
+                        )
+                        }
+                } 
+                timing() {
+                        related_pin     : CLKB;
+                        timing_type     : hold_rising ;
+                        rise_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000" \
+                        )
+                        }
+                        fall_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000" \
+                        )
+                        }
+               }
+                internal_power(){
+                        rise_power(SRAM_4096_32_energy_template_sigslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.486, 0.486, 0.486, 0.486, 0.487, 0.487, 0.488")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_sigslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.406, 0.406, 0.406, 0.407, 0.407, 0.408, 0.409")
+                        }
+                }
+        }
+        bus(AB)   {
+                bus_type : SRAM_4096_32_ADDRESS;
+                direction : input;
+                capacitance : 0.060;
+                timing() {
+                        related_pin     : CLKB;
+                        timing_type     : setup_rising ;
+                        rise_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.582, 0.583, 0.584, 0.587, 0.593, 0.604, 0.616", \
+                          "0.583, 0.584, 0.585, 0.587, 0.594, 0.605, 0.617", \
+                          "0.584, 0.585, 0.586, 0.588, 0.595, 0.606, 0.617", \
+                          "0.586, 0.587, 0.588, 0.590, 0.597, 0.608, 0.619", \
+                          "0.591, 0.592, 0.593, 0.596, 0.602, 0.614, 0.625", \
+                          "0.600, 0.601, 0.603, 0.605, 0.612, 0.623, 0.634", \
+                          "0.610, 0.611, 0.612, 0.614, 0.621, 0.632, 0.643" \
+                        )
+                        }
+                        fall_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.370, 0.371, 0.372, 0.374, 0.381, 0.392, 0.402", \
+                          "0.371, 0.372, 0.373, 0.375, 0.382, 0.392, 0.403", \
+                          "0.372, 0.373, 0.374, 0.376, 0.383, 0.393, 0.404", \
+                          "0.374, 0.375, 0.376, 0.378, 0.384, 0.395, 0.406", \
+                          "0.379, 0.380, 0.381, 0.384, 0.390, 0.401, 0.411", \
+                          "0.389, 0.390, 0.391, 0.393, 0.399, 0.410, 0.420", \
+                          "0.398, 0.399, 0.400, 0.402, 0.408, 0.419, 0.430" \
+                        )
+                        }
+                } 
+                timing() {
+                        related_pin     : CLKB;
+                        timing_type     : hold_rising ;
+                        rise_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.006, 0.005, 0.004, 0.002, 0.000, 0.000, 0.000", \
+                          "0.006, 0.005, 0.004, 0.001, 0.000, 0.000, 0.000", \
+                          "0.005, 0.004, 0.003, 0.000, 0.000, 0.000, 0.000", \
+                          "0.003, 0.002, 0.001, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000" \
+                        )
+                        }
+                        fall_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000" \
+                        )
+                        }
+               }
+                internal_power(){
+                        rise_power(SRAM_4096_32_energy_template_sigslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.042, 0.042, 0.042, 0.043, 0.044, 0.046, 0.048")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_sigslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.043, 0.043, 0.043, 0.044, 0.045, 0.046, 0.048")
+                        }
+                }
+        }
+        bus(DB)   {
+                bus_type : SRAM_4096_32_DATA;
+                memory_write() {
+                        address : AB;
+                        clocked_on : "CLKB";
+                }
+                direction : input;
+                capacitance : 0.025;
+                timing() {
+                        related_pin     : CLKB;
+                        timing_type     : setup_rising ;
+                        rise_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.184, 0.185, 0.185, 0.185, 0.187, 0.189, 0.192", \
+                          "0.185, 0.186, 0.186, 0.186, 0.188, 0.190, 0.193", \
+                          "0.186, 0.186, 0.187, 0.187, 0.189, 0.191, 0.194", \
+                          "0.188, 0.188, 0.189, 0.189, 0.190, 0.193, 0.195", \
+                          "0.194, 0.194, 0.194, 0.195, 0.196, 0.198, 0.201", \
+                          "0.203, 0.203, 0.203, 0.204, 0.205, 0.208, 0.210", \
+                          "0.212, 0.212, 0.212, 0.213, 0.214, 0.217, 0.219" \
+                        )
+                        }
+                        fall_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.182, 0.185, 0.187, 0.192, 0.206, 0.230, 0.254", \
+                          "0.183, 0.185, 0.188, 0.192, 0.207, 0.231, 0.254", \
+                          "0.184, 0.186, 0.189, 0.193, 0.208, 0.231, 0.255", \
+                          "0.186, 0.188, 0.190, 0.195, 0.209, 0.233, 0.257", \
+                          "0.191, 0.194, 0.196, 0.201, 0.215, 0.239, 0.263", \
+                          "0.201, 0.203, 0.205, 0.210, 0.224, 0.248, 0.272", \
+                          "0.210, 0.212, 0.214, 0.219, 0.233, 0.257, 0.281" \
+                        )
+                        }
+                } 
+                timing() {
+                        related_pin     : CLKB;
+                        timing_type     : hold_rising ;
+                        rise_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000" \
+                        )
+                        }
+                        fall_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000", \
+                          "0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000" \
+                        )
+                        }
+               }
+                internal_power(){
+                        when : "(! \
+                                 (WENB[0] & \
+                                  WENB[1] & \
+                                  WENB[2] & \
+                                  WENB[3])  \
+                                )";
+                        rise_power(SRAM_4096_32_energy_template_sigslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.003, 0.003, 0.003, 0.003, 0.003, 0.004, 0.004")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_sigslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.002, 0.003, 0.003, 0.003, 0.003, 0.004, 0.004")
+                        }
+                }
+                internal_power(){
+                        when : " \
+                                 (WENB[0] & \
+                                  WENB[1] & \
+                                  WENB[2] & \
+                                  WENB[3])  \
+                               ";
+                        rise_power(SRAM_4096_32_energy_template_sigslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.001, 0.001, 0.001, 0.001, 0.001, 0.002, 0.002")
+                        }
+                        fall_power(SRAM_4096_32_energy_template_sigslew) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ("0.001, 0.001, 0.001, 0.001, 0.001, 0.002, 0.002")
+                        }
+                }
+        }
+        bus(EMAA)   {
+                bus_type : SRAM_4096_32_UPM;
+                direction : input;
+                capacitance : 0.039;
+                timing() {
+                        related_pin     : CLKA;
+                        timing_type     : setup_rising ;
+                        rise_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "1.323, 1.323, 1.323, 1.323, 1.328, 1.339, 1.350", \
+                          "1.323, 1.323, 1.323, 1.323, 1.328, 1.340, 1.351", \
+                          "1.323, 1.323, 1.323, 1.323, 1.329, 1.340, 1.352", \
+                          "1.323, 1.323, 1.323, 1.324, 1.331, 1.342, 1.353", \
+                          "1.326, 1.327, 1.328, 1.330, 1.337, 1.348, 1.359", \
+                          "1.335, 1.336, 1.337, 1.339, 1.346, 1.357, 1.368", \
+                          "1.344, 1.345, 1.346, 1.348, 1.355, 1.366, 1.377" \
+                        )
+                        }
+                        fall_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "1.323, 1.323, 1.323, 1.323, 1.328, 1.339, 1.350", \
+                          "1.323, 1.323, 1.323, 1.323, 1.328, 1.340, 1.351", \
+                          "1.323, 1.323, 1.323, 1.323, 1.329, 1.340, 1.352", \
+                          "1.323, 1.323, 1.323, 1.324, 1.331, 1.342, 1.353", \
+                          "1.326, 1.327, 1.328, 1.330, 1.337, 1.348, 1.359", \
+                          "1.335, 1.336, 1.337, 1.339, 1.346, 1.357, 1.368", \
+                          "1.344, 1.345, 1.346, 1.348, 1.355, 1.366, 1.377" \
+                        )
+                        }
+                } 
+                timing() {
+                        related_pin     : CLKA;
+                        timing_type     : hold_rising ;
+                        rise_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "1.323, 1.323, 1.323, 1.323, 1.328, 1.339, 1.350", \
+                          "1.323, 1.323, 1.323, 1.323, 1.328, 1.340, 1.351", \
+                          "1.323, 1.323, 1.323, 1.323, 1.329, 1.340, 1.352", \
+                          "1.323, 1.323, 1.323, 1.324, 1.331, 1.342, 1.353", \
+                          "1.326, 1.327, 1.328, 1.330, 1.337, 1.348, 1.359", \
+                          "1.335, 1.336, 1.337, 1.339, 1.346, 1.357, 1.368", \
+                          "1.344, 1.345, 1.346, 1.348, 1.355, 1.366, 1.377" \
+                        )
+                        }
+                        fall_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "1.323, 1.323, 1.323, 1.323, 1.328, 1.339, 1.350", \
+                          "1.323, 1.323, 1.323, 1.323, 1.328, 1.340, 1.351", \
+                          "1.323, 1.323, 1.323, 1.323, 1.329, 1.340, 1.352", \
+                          "1.323, 1.323, 1.323, 1.324, 1.331, 1.342, 1.353", \
+                          "1.326, 1.327, 1.328, 1.330, 1.337, 1.348, 1.359", \
+                          "1.335, 1.336, 1.337, 1.339, 1.346, 1.357, 1.368", \
+                          "1.344, 1.345, 1.346, 1.348, 1.355, 1.366, 1.377" \
+                        )
+                        }
+               }
+        }
+        bus(EMAB)   {
+                bus_type : SRAM_4096_32_UPM;
+                direction : input;
+                capacitance : 0.039;
+                timing() {
+                        related_pin     : CLKB;
+                        timing_type     : setup_rising ;
+                        rise_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "1.323, 1.323, 1.323, 1.323, 1.328, 1.339, 1.350", \
+                          "1.323, 1.323, 1.323, 1.323, 1.328, 1.340, 1.351", \
+                          "1.323, 1.323, 1.323, 1.323, 1.329, 1.340, 1.352", \
+                          "1.323, 1.323, 1.323, 1.324, 1.331, 1.342, 1.353", \
+                          "1.326, 1.327, 1.328, 1.330, 1.337, 1.348, 1.359", \
+                          "1.335, 1.336, 1.337, 1.339, 1.346, 1.357, 1.368", \
+                          "1.344, 1.345, 1.346, 1.348, 1.355, 1.366, 1.377" \
+                        )
+                        }
+                        fall_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "1.323, 1.323, 1.323, 1.323, 1.328, 1.339, 1.350", \
+                          "1.323, 1.323, 1.323, 1.323, 1.328, 1.340, 1.351", \
+                          "1.323, 1.323, 1.323, 1.323, 1.329, 1.340, 1.352", \
+                          "1.323, 1.323, 1.323, 1.324, 1.331, 1.342, 1.353", \
+                          "1.326, 1.327, 1.328, 1.330, 1.337, 1.348, 1.359", \
+                          "1.335, 1.336, 1.337, 1.339, 1.346, 1.357, 1.368", \
+                          "1.344, 1.345, 1.346, 1.348, 1.355, 1.366, 1.377" \
+                        )
+                        }
+                } 
+                timing() {
+                        related_pin     : CLKB;
+                        timing_type     : hold_rising ;
+                        rise_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "1.323, 1.323, 1.323, 1.323, 1.328, 1.339, 1.350", \
+                          "1.323, 1.323, 1.323, 1.323, 1.328, 1.340, 1.351", \
+                          "1.323, 1.323, 1.323, 1.323, 1.329, 1.340, 1.352", \
+                          "1.323, 1.323, 1.323, 1.324, 1.331, 1.342, 1.353", \
+                          "1.326, 1.327, 1.328, 1.330, 1.337, 1.348, 1.359", \
+                          "1.335, 1.336, 1.337, 1.339, 1.346, 1.357, 1.368", \
+                          "1.344, 1.345, 1.346, 1.348, 1.355, 1.366, 1.377" \
+                        )
+                        }
+                        fall_constraint(SRAM_4096_32_constraint_template) {
+                        index_1 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        index_2 ("0.017, 0.035, 0.054, 0.093, 0.211, 0.407, 0.603");
+                        values ( \
+                          "1.323, 1.323, 1.323, 1.323, 1.328, 1.339, 1.350", \
+                          "1.323, 1.323, 1.323, 1.323, 1.328, 1.340, 1.351", \
+                          "1.323, 1.323, 1.323, 1.323, 1.329, 1.340, 1.352", \
+                          "1.323, 1.323, 1.323, 1.324, 1.331, 1.342, 1.353", \
+                          "1.326, 1.327, 1.328, 1.330, 1.337, 1.348, 1.359", \
+                          "1.335, 1.336, 1.337, 1.339, 1.346, 1.357, 1.368", \
+                          "1.344, 1.345, 1.346, 1.348, 1.355, 1.366, 1.377" \
+                        )
+                        }
+               }
+        }
+
+        cell_leakage_power : 5.26E-1;
+}
+}

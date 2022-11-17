@@ -1,0 +1,20 @@
+.option norvc
+lui x1,0xfffff
+addi x2,x0,0xff
+slli x3,x2,4
+addi x3,x3,0xf
+add x4,x3,x1
+auipc x5,0xfff
+sw x5,0x0(a0)
+sw x5,0x4(a0)
+sw x5,0x8(a0)
+sw x5,0xC(a0)
+sw x5,0x10(a0)
+
+sb x5,0x1(a0)
+sb x5,0x6(a0)
+sb x5,0xB(a0)
+
+sh x5,0xC(a0)
+sh x5,0x12(a0)
+

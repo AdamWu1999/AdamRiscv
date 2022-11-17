@@ -1,0 +1,102 @@
+#!/usr/bin/perl
+
+use File::Copy qw(copy cp);
+use Cwd;
+
+#foreach $input (@ARGV){
+#    print "$input\n ";
+#}
+$Mode       = $ARGV[0];
+$Case_path  = $ARGV[1];
+$New_dir    = $ARGV[2];
+#========================
+#copy
+
+$sv_name  = "user.sv";
+$c_name  = "main.c";
+$s_name  = "main.s";
+
+my @CASE_PATH = split /\//, cwd(); 
+#print "||| @CASE_PATH |||\n";
+my @CASE_RUN_NMAE = split /_/, $CASE_PATH[7];
+if($Mode ne ''){
+    chdir $New_dir;
+    #print "\n**NO Empty!!!\n";
+    if($Mode eq '-m'){
+        symlink "../$Case_path/$c_name",'main.c';
+        symlink "../$Case_path/$s_name",'main.s';
+        symlink "../$Case_path/$sv_name",'user.sv';
+        #&c_comple;
+        system "rvgccCom";
+    }
+    elsif($Mode eq '-s'){
+        symlink "../$Case_path/$sv_name",'user.sv';
+        }
+
+} 
+else {
+    $New_dir = $CASE_PATH[7];
+    if($CASE_RUN_NMAE[1] eq 'introm'){
+        symlink "../$Case_path/$c_name",'main.c';
+        symlink "../$Case_path/$s_name",'main.s';
+        symlink "../$Case_path/$sv_name",'user.sv';
+        system "rvgccCom";
+    }
+
+    elsif($CASE_RUN_NMAE[1] eq 'slv'){
+        symlink "../$Case_path/$sv_name",'user.sv';
+    }
+    
+}
+
+copy("./../../testbench/tbtop.v","./") or die "Copy failed: $!";
+copy("./../config/modules_list","./") or die "Copy failed: $!";
+copy("./../config/ext_modules_list","./") or die "Copy failed: $!";
+copy("./../config/sim_config","./") or die "Copy failed: $!";
+
+
+my $fileExist = -e "module_file_list";
+if ( $fileExist ) {
+    unlink qw(module_file_list); 
+#    print "Yes\n"
+}
+#else {
+#    print "No\n"
+#}
+
+open(MODULE_LIST ,"<modules_list") or die "Open modules_list failed: $!";
+@module_line=<MODULE_LIST>;
+foreach $input (@module_line){
+    chomp($input);
+    $input =~ s/\s//g;
+    #print "main:$input\n";
+    $_= $input;
+    s/\:/\//;
+    $MODULE_HEAD_PATH="../../../module/$_";
+    #print "$MODULE_HEAD_PATH\n";
+    &module_list_gen($MODULE_HEAD_PATH);
+}
+close MODULE_LIST;
+
+##==================================
+
+chmod 0777, 'sim_config';
+$SIM_CFG = qx(sim_config $New_dir);
+system "vcs $SIM_CFG";
+system "check_log";
+
+
+##==================================
+sub module_list_gen{
+    #print "SUB:$_[0]\n";
+    open(FILE_LIST ,"<$_[0]/file_list") or die "Open file_list failed: $!";
+    open(NEW_LIST,">>module_file_list");
+    @file_line=<FILE_LIST>;
+    foreach $input (@file_line){
+        chomp($input);
+        say NEW_LIST "$_[0]/$input";
+        #print "$_[0]/$input\n";
+    }
+    close NEW_LIST;
+    close FILE_LIST;
+}

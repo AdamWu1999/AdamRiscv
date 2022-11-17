@@ -1,0 +1,454 @@
+//
+//      CONFIDENTIAL  AND  PROPRIETARY SOFTWARE OF ARM Physical IP, INC.
+//      
+//      Copyright (c) 1993-2022  ARM Physical IP, Inc.  All  Rights Reserved.
+//      
+//      Use of this Software is subject to the terms and conditions  of the
+//      applicable license agreement with ARM Physical IP, Inc.  In addition,
+//      this Software is protected by patents, copyright law and international
+//      treaties.
+//      
+//      The copyright notice(s) in this Software does not indicate actual or
+//      intended publication of this Software.
+//      
+//      name:			Advantage Dual-Port SRAM Generator
+//           			TSMC CLN90G Process
+//      version:		2005Q4V1
+//      comment:		
+//      configuration:	 -instname "SRAM_4096_32" -words 4096 -bits 32 -frequency 150 -ring_width 2.0 -mux 16 -write_mask on -wp_size 8 -top_layer "met5-9" -power_type rings -horiz met3 -vert met4 -redundancy off -rcols 2 -rrows 2 -bmux off -ser none -ema on -cust_comment "" -bus_notation on -left_bus_delim "[" -right_bus_delim "]" -pwr_gnd_rename "VDD:VDD,VSS:VSS" -prefix "" -pin_space 0.0 -name_case upper -check_instname on -diodes on -inside_ring_type VSS -drive 6 -dpccm on -asvm off -corners ff_1.1_-40.0,ff_1.1_125.0,tt_1.0_25.0,ss_0.9_125.0
+//
+//      Verilog model for Synchronous Dual-Port Ram
+//
+//      Instance Name:  SRAM_4096_32
+//      Words:          4096
+//      Word Width:     32
+//
+//      Creation Date:  2022-08-30 09:27:21Z
+//      Version: 	2005Q4V1
+//
+//      Verified With: TetraMax 2002.05
+//
+//      Modeling Assumptions: This model is for use by only TetraMax ATPG tool.
+//      It is not intended to be used by any Verilog Simulator.
+//
+//      Modeling Limitations: These models have limited functionality as
+//      defined by the TetraMax modelling guidelines. These models are
+//      developed on Verilog syntax but they don't fully represent the
+//      functionality of the memory model as they are restricted by
+//      the ATPG tool.The tetramax 2001.08 might generate wrong ATPG
+//      vectors if full sequential ATPG engine is used. We have used
+//      fast sequential ATPG engine for verification of all the memories on
+//      recommendation from Synopsys Tetramax expert.  The models have been tested
+//      by generating the ATPG vectors and simulating them as well as running functional
+//      vectors through tetramax logical simulation engine.
+//
+//      Known Bugs: None.
+//
+//      Known Work Arounds: N/A
+//
+`timescale 1 ns/1 ps
+module ds_SRAM_4096_32 (q, s1, s2, s3, d2, d3, clk, eq);
+  output q;
+  input s1,s2,s3,d2,d3,clk,eq;
+  _AND a1 (s3, eq, m3s);
+  _MUX m3 (m3s, d3, 1'bx, n3);
+  _MUX m2 (s2, n3, d2, n2);
+  _MUX m1 (s1, n2, q, n1);
+  _DFF r1 (1'b0, 1'b0, clk, n1, q);
+endmodule
+
+
+
+
+
+
+
+
+`celldefine
+`define read_write readx
+`define write_write xword
+`define read_read   normal
+
+module SRAM_4096_32 (
+                QA,
+                QB,
+                CLKA,
+                CENA,
+                WENA,
+                AA,
+                DA,
+                CLKB,
+                CENB,
+                WENB,
+                AB,
+                DB,
+                EMAA,
+                EMAB
+);
+   parameter		   BITS = 32;
+   parameter		   addr_width = 12;
+   parameter               mask_width = 4 ;
+   parameter               wp_size    = 8 ;
+   output [31:0]            QA;
+   output [31:0]            QB;
+   input                    CLKA;
+   input                    CENA;
+   input [3:0]              WENA;
+   input [11:0]             AA;
+   input [31:0]             DA;
+   input                    CLKB;
+   input                    CENB;
+   input [3:0]              WENB;
+   input [11:0]             AB;
+   input [31:0]             DB;
+   input [2:0]              EMAA;
+   input [2:0]              EMAB;
+   reg [31:0]               QA;
+   reg [31:0]               QB;
+   reg [7:0]     mem0 [4095:0];
+   reg [15:8]     mem1 [4095:0];
+   reg [23:16]     mem2 [4095:0];
+   reg [31:24]     mem3 [4095:0];
+
+
+   _TIE1 emaA (
+                         EMAA[0],
+                         EMAA[1],
+                         EMAA[2],
+                         emaA_wire);
+   _TIE1 all_tie_1A (
+                                emaA_wire,
+                                tie_to_1A); 
+    assign tie_to_1A=1'b1;
+   wire I_CENA;
+   wire [11:0] I_AA;
+   wire [31:0]       I_DA;
+   reg [31:0] I_QA;
+   wire [3:0] I_WENA;
+
+   assign I_DA[0]=DA[0];
+   assign I_DA[1]=DA[1];
+   assign I_DA[2]=DA[2];
+   assign I_DA[3]=DA[3];
+   assign I_DA[4]=DA[4];
+   assign I_DA[5]=DA[5];
+   assign I_DA[6]=DA[6];
+   assign I_DA[7]=DA[7];
+   assign I_DA[8]=DA[8];
+   assign I_DA[9]=DA[9];
+   assign I_DA[10]=DA[10];
+   assign I_DA[11]=DA[11];
+   assign I_DA[12]=DA[12];
+   assign I_DA[13]=DA[13];
+   assign I_DA[14]=DA[14];
+   assign I_DA[15]=DA[15];
+   assign I_DA[16]=DA[16];
+   assign I_DA[17]=DA[17];
+   assign I_DA[18]=DA[18];
+   assign I_DA[19]=DA[19];
+   assign I_DA[20]=DA[20];
+   assign I_DA[21]=DA[21];
+   assign I_DA[22]=DA[22];
+   assign I_DA[23]=DA[23];
+   assign I_DA[24]=DA[24];
+   assign I_DA[25]=DA[25];
+   assign I_DA[26]=DA[26];
+   assign I_DA[27]=DA[27];
+   assign I_DA[28]=DA[28];
+   assign I_DA[29]=DA[29];
+   assign I_DA[30]=DA[30];
+   assign I_DA[31]=DA[31];
+
+   assign I_WENA[0]=WENA[0];
+   assign I_WENA[1]=WENA[1];
+   assign I_WENA[2]=WENA[2];
+   assign I_WENA[3]=WENA[3];
+   assign I_AA[0]=AA[0];
+   assign I_AA[1]=AA[1];
+   assign I_AA[2]=AA[2];
+   assign I_AA[3]=AA[3];
+   assign I_AA[4]=AA[4];
+   assign I_AA[5]=AA[5];
+   assign I_AA[6]=AA[6];
+   assign I_AA[7]=AA[7];
+   assign I_AA[8]=AA[8];
+   assign I_AA[9]=AA[9];
+   assign I_AA[10]=AA[10];
+   assign I_AA[11]=AA[11];
+   assign I_CENA=CENA;
+  
+   not (NOT_CENA, I_CENA);
+
+   not (NOT_WENA0, I_WENA[0]);
+   and (RW_BOTHA0,NOT_WENA0, NOT_CENA);
+   not (NOT_WENA1, I_WENA[1]);
+   and (RW_BOTHA1,NOT_WENA1, NOT_CENA);
+   not (NOT_WENA2, I_WENA[2]);
+   and (RW_BOTHA2,NOT_WENA2, NOT_CENA);
+   not (NOT_WENA3, I_WENA[3]);
+   and (RW_BOTHA3,NOT_WENA3, NOT_CENA);
+
+
+   _TIE1 emaB (
+                         EMAB[0],
+                         EMAB[1],
+                         EMAB[2],
+                         emaB_wire);
+   _TIE1 all_tie_1B (
+                                emaB_wire,
+                                tie_to_1B); 
+    assign tie_to_1B=1'b1;
+   wire I_CENB;
+   wire [11:0] I_AB;
+   wire [31:0]       I_DB;
+   reg [31:0] I_QB;
+   wire [3:0] I_WENB;
+
+   assign I_DB[0]=DB[0];
+   assign I_DB[1]=DB[1];
+   assign I_DB[2]=DB[2];
+   assign I_DB[3]=DB[3];
+   assign I_DB[4]=DB[4];
+   assign I_DB[5]=DB[5];
+   assign I_DB[6]=DB[6];
+   assign I_DB[7]=DB[7];
+   assign I_DB[8]=DB[8];
+   assign I_DB[9]=DB[9];
+   assign I_DB[10]=DB[10];
+   assign I_DB[11]=DB[11];
+   assign I_DB[12]=DB[12];
+   assign I_DB[13]=DB[13];
+   assign I_DB[14]=DB[14];
+   assign I_DB[15]=DB[15];
+   assign I_DB[16]=DB[16];
+   assign I_DB[17]=DB[17];
+   assign I_DB[18]=DB[18];
+   assign I_DB[19]=DB[19];
+   assign I_DB[20]=DB[20];
+   assign I_DB[21]=DB[21];
+   assign I_DB[22]=DB[22];
+   assign I_DB[23]=DB[23];
+   assign I_DB[24]=DB[24];
+   assign I_DB[25]=DB[25];
+   assign I_DB[26]=DB[26];
+   assign I_DB[27]=DB[27];
+   assign I_DB[28]=DB[28];
+   assign I_DB[29]=DB[29];
+   assign I_DB[30]=DB[30];
+   assign I_DB[31]=DB[31];
+
+   assign I_WENB[0]=WENB[0];
+   assign I_WENB[1]=WENB[1];
+   assign I_WENB[2]=WENB[2];
+   assign I_WENB[3]=WENB[3];
+   assign I_AB[0]=AB[0];
+   assign I_AB[1]=AB[1];
+   assign I_AB[2]=AB[2];
+   assign I_AB[3]=AB[3];
+   assign I_AB[4]=AB[4];
+   assign I_AB[5]=AB[5];
+   assign I_AB[6]=AB[6];
+   assign I_AB[7]=AB[7];
+   assign I_AB[8]=AB[8];
+   assign I_AB[9]=AB[9];
+   assign I_AB[10]=AB[10];
+   assign I_AB[11]=AB[11];
+   assign I_CENB=CENB;
+  
+   not (NOT_CENB, I_CENB);
+
+   not (NOT_WENB0, I_WENB[0]);
+   and (RW_BOTHB0,NOT_WENB0, NOT_CENB);
+   not (NOT_WENB1, I_WENB[1]);
+   and (RW_BOTHB1,NOT_WENB1, NOT_CENB);
+   not (NOT_WENB2, I_WENB[2]);
+   and (RW_BOTHB2,NOT_WENB2, NOT_CENB);
+   not (NOT_WENB3, I_WENB[3]);
+   and (RW_BOTHB3,NOT_WENB3, NOT_CENB);
+
+event write_event;
+supply1 vdd;
+   reg [31:0] iQA;
+   reg [31:0] iQB;
+
+   xnor u0 (n[0], I_AA[0], I_AB[0]);
+   xnor u1 (n[1], I_AA[1], I_AB[1]);
+   xnor u2 (n[2], I_AA[2], I_AB[2]);
+   xnor u3 (n[3], I_AA[3], I_AB[3]);
+   xnor u4 (n[4], I_AA[4], I_AB[4]);
+   xnor u5 (n[5], I_AA[5], I_AB[5]);
+   xnor u6 (n[6], I_AA[6], I_AB[6]);
+   xnor u7 (n[7], I_AA[7], I_AB[7]);
+   xnor u8 (n[8], I_AA[8], I_AB[8]);
+   xnor u9 (n[9], I_AA[9], I_AB[9]);
+   xnor u10 (n[10], I_AA[10], I_AB[10]);
+   xnor u11 (n[11], I_AA[11], I_AB[11]);
+   and ( and_n,
+         n[0],
+         n[1],
+         n[2],
+         n[3],
+         n[4],
+         n[5],
+         n[6],
+         n[7],
+         n[8],
+         n[9],
+         n[10],
+         n[11]);
+
+
+
+   always @ ( posedge CLKA ) if ( RW_BOTHA0 ) begin mem0[I_AA]=I_DA[7:0]; #0; ->write_event; end
+   always @ ( vdd or I_AA or write_event ) iQA[7:0]=mem0[I_AA];
+   ds_SRAM_4096_32 (.q(I_QA[0]), .s1(I_CENA), .s2(RW_BOTHA0), .s3(RW_BOTHB0), .d2(I_DA[0]), .d3(iQA[0]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[1]), .s1(I_CENA), .s2(RW_BOTHA0), .s3(RW_BOTHB0), .d2(I_DA[1]), .d3(iQA[1]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[2]), .s1(I_CENA), .s2(RW_BOTHA0), .s3(RW_BOTHB0), .d2(I_DA[2]), .d3(iQA[2]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[3]), .s1(I_CENA), .s2(RW_BOTHA0), .s3(RW_BOTHB0), .d2(I_DA[3]), .d3(iQA[3]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[4]), .s1(I_CENA), .s2(RW_BOTHA0), .s3(RW_BOTHB0), .d2(I_DA[4]), .d3(iQA[4]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[5]), .s1(I_CENA), .s2(RW_BOTHA0), .s3(RW_BOTHB0), .d2(I_DA[5]), .d3(iQA[5]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[6]), .s1(I_CENA), .s2(RW_BOTHA0), .s3(RW_BOTHB0), .d2(I_DA[6]), .d3(iQA[6]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[7]), .s1(I_CENA), .s2(RW_BOTHA0), .s3(RW_BOTHB0), .d2(I_DA[7]), .d3(iQA[7]), .clk(CLKA), .eq(and_n)); 
+   always @ ( posedge CLKA ) if ( RW_BOTHA1 ) begin mem1[I_AA]=I_DA[15:8]; #0; ->write_event; end
+   always @ ( vdd or I_AA or write_event ) iQA[15:8]=mem1[I_AA];
+   ds_SRAM_4096_32 (.q(I_QA[8]), .s1(I_CENA), .s2(RW_BOTHA1), .s3(RW_BOTHB1), .d2(I_DA[8]), .d3(iQA[8]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[9]), .s1(I_CENA), .s2(RW_BOTHA1), .s3(RW_BOTHB1), .d2(I_DA[9]), .d3(iQA[9]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[10]), .s1(I_CENA), .s2(RW_BOTHA1), .s3(RW_BOTHB1), .d2(I_DA[10]), .d3(iQA[10]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[11]), .s1(I_CENA), .s2(RW_BOTHA1), .s3(RW_BOTHB1), .d2(I_DA[11]), .d3(iQA[11]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[12]), .s1(I_CENA), .s2(RW_BOTHA1), .s3(RW_BOTHB1), .d2(I_DA[12]), .d3(iQA[12]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[13]), .s1(I_CENA), .s2(RW_BOTHA1), .s3(RW_BOTHB1), .d2(I_DA[13]), .d3(iQA[13]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[14]), .s1(I_CENA), .s2(RW_BOTHA1), .s3(RW_BOTHB1), .d2(I_DA[14]), .d3(iQA[14]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[15]), .s1(I_CENA), .s2(RW_BOTHA1), .s3(RW_BOTHB1), .d2(I_DA[15]), .d3(iQA[15]), .clk(CLKA), .eq(and_n)); 
+   always @ ( posedge CLKA ) if ( RW_BOTHA2 ) begin mem2[I_AA]=I_DA[23:16]; #0; ->write_event; end
+   always @ ( vdd or I_AA or write_event ) iQA[23:16]=mem2[I_AA];
+   ds_SRAM_4096_32 (.q(I_QA[16]), .s1(I_CENA), .s2(RW_BOTHA2), .s3(RW_BOTHB2), .d2(I_DA[16]), .d3(iQA[16]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[17]), .s1(I_CENA), .s2(RW_BOTHA2), .s3(RW_BOTHB2), .d2(I_DA[17]), .d3(iQA[17]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[18]), .s1(I_CENA), .s2(RW_BOTHA2), .s3(RW_BOTHB2), .d2(I_DA[18]), .d3(iQA[18]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[19]), .s1(I_CENA), .s2(RW_BOTHA2), .s3(RW_BOTHB2), .d2(I_DA[19]), .d3(iQA[19]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[20]), .s1(I_CENA), .s2(RW_BOTHA2), .s3(RW_BOTHB2), .d2(I_DA[20]), .d3(iQA[20]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[21]), .s1(I_CENA), .s2(RW_BOTHA2), .s3(RW_BOTHB2), .d2(I_DA[21]), .d3(iQA[21]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[22]), .s1(I_CENA), .s2(RW_BOTHA2), .s3(RW_BOTHB2), .d2(I_DA[22]), .d3(iQA[22]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[23]), .s1(I_CENA), .s2(RW_BOTHA2), .s3(RW_BOTHB2), .d2(I_DA[23]), .d3(iQA[23]), .clk(CLKA), .eq(and_n)); 
+   always @ ( posedge CLKA ) if ( RW_BOTHA3 ) begin mem3[I_AA]=I_DA[31:24]; #0; ->write_event; end
+   always @ ( vdd or I_AA or write_event ) iQA[31:24]=mem3[I_AA];
+   ds_SRAM_4096_32 (.q(I_QA[24]), .s1(I_CENA), .s2(RW_BOTHA3), .s3(RW_BOTHB3), .d2(I_DA[24]), .d3(iQA[24]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[25]), .s1(I_CENA), .s2(RW_BOTHA3), .s3(RW_BOTHB3), .d2(I_DA[25]), .d3(iQA[25]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[26]), .s1(I_CENA), .s2(RW_BOTHA3), .s3(RW_BOTHB3), .d2(I_DA[26]), .d3(iQA[26]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[27]), .s1(I_CENA), .s2(RW_BOTHA3), .s3(RW_BOTHB3), .d2(I_DA[27]), .d3(iQA[27]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[28]), .s1(I_CENA), .s2(RW_BOTHA3), .s3(RW_BOTHB3), .d2(I_DA[28]), .d3(iQA[28]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[29]), .s1(I_CENA), .s2(RW_BOTHA3), .s3(RW_BOTHB3), .d2(I_DA[29]), .d3(iQA[29]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[30]), .s1(I_CENA), .s2(RW_BOTHA3), .s3(RW_BOTHB3), .d2(I_DA[30]), .d3(iQA[30]), .clk(CLKA), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QA[31]), .s1(I_CENA), .s2(RW_BOTHA3), .s3(RW_BOTHB3), .d2(I_DA[31]), .d3(iQA[31]), .clk(CLKA), .eq(and_n)); 
+    assign QA[0]=I_QA[0];
+    assign QA[1]=I_QA[1];
+    assign QA[2]=I_QA[2];
+    assign QA[3]=I_QA[3];
+    assign QA[4]=I_QA[4];
+    assign QA[5]=I_QA[5];
+    assign QA[6]=I_QA[6];
+    assign QA[7]=I_QA[7];
+    assign QA[8]=I_QA[8];
+    assign QA[9]=I_QA[9];
+    assign QA[10]=I_QA[10];
+    assign QA[11]=I_QA[11];
+    assign QA[12]=I_QA[12];
+    assign QA[13]=I_QA[13];
+    assign QA[14]=I_QA[14];
+    assign QA[15]=I_QA[15];
+    assign QA[16]=I_QA[16];
+    assign QA[17]=I_QA[17];
+    assign QA[18]=I_QA[18];
+    assign QA[19]=I_QA[19];
+    assign QA[20]=I_QA[20];
+    assign QA[21]=I_QA[21];
+    assign QA[22]=I_QA[22];
+    assign QA[23]=I_QA[23];
+    assign QA[24]=I_QA[24];
+    assign QA[25]=I_QA[25];
+    assign QA[26]=I_QA[26];
+    assign QA[27]=I_QA[27];
+    assign QA[28]=I_QA[28];
+    assign QA[29]=I_QA[29];
+    assign QA[30]=I_QA[30];
+    assign QA[31]=I_QA[31];
+
+
+   always @ ( posedge CLKB ) if ( RW_BOTHB0 ) begin mem0[I_AB]=I_DB[7:0]; #0; ->write_event; end
+   always @ ( vdd or I_AB or write_event ) iQB[7:0]=mem0[I_AB];
+   ds_SRAM_4096_32 (.q(I_QB[0]), .s1(I_CENB), .s2(RW_BOTHB0), .s3(RW_BOTHA0), .d2(I_DB[0]), .d3(iQB[0]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[1]), .s1(I_CENB), .s2(RW_BOTHB0), .s3(RW_BOTHA0), .d2(I_DB[1]), .d3(iQB[1]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[2]), .s1(I_CENB), .s2(RW_BOTHB0), .s3(RW_BOTHA0), .d2(I_DB[2]), .d3(iQB[2]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[3]), .s1(I_CENB), .s2(RW_BOTHB0), .s3(RW_BOTHA0), .d2(I_DB[3]), .d3(iQB[3]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[4]), .s1(I_CENB), .s2(RW_BOTHB0), .s3(RW_BOTHA0), .d2(I_DB[4]), .d3(iQB[4]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[5]), .s1(I_CENB), .s2(RW_BOTHB0), .s3(RW_BOTHA0), .d2(I_DB[5]), .d3(iQB[5]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[6]), .s1(I_CENB), .s2(RW_BOTHB0), .s3(RW_BOTHA0), .d2(I_DB[6]), .d3(iQB[6]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[7]), .s1(I_CENB), .s2(RW_BOTHB0), .s3(RW_BOTHA0), .d2(I_DB[7]), .d3(iQB[7]), .clk(CLKB), .eq(and_n)); 
+   always @ ( posedge CLKB ) if ( RW_BOTHB1 ) begin mem1[I_AB]=I_DB[15:8]; #0; ->write_event; end
+   always @ ( vdd or I_AB or write_event ) iQB[15:8]=mem1[I_AB];
+   ds_SRAM_4096_32 (.q(I_QB[8]), .s1(I_CENB), .s2(RW_BOTHB1), .s3(RW_BOTHA1), .d2(I_DB[8]), .d3(iQB[8]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[9]), .s1(I_CENB), .s2(RW_BOTHB1), .s3(RW_BOTHA1), .d2(I_DB[9]), .d3(iQB[9]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[10]), .s1(I_CENB), .s2(RW_BOTHB1), .s3(RW_BOTHA1), .d2(I_DB[10]), .d3(iQB[10]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[11]), .s1(I_CENB), .s2(RW_BOTHB1), .s3(RW_BOTHA1), .d2(I_DB[11]), .d3(iQB[11]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[12]), .s1(I_CENB), .s2(RW_BOTHB1), .s3(RW_BOTHA1), .d2(I_DB[12]), .d3(iQB[12]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[13]), .s1(I_CENB), .s2(RW_BOTHB1), .s3(RW_BOTHA1), .d2(I_DB[13]), .d3(iQB[13]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[14]), .s1(I_CENB), .s2(RW_BOTHB1), .s3(RW_BOTHA1), .d2(I_DB[14]), .d3(iQB[14]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[15]), .s1(I_CENB), .s2(RW_BOTHB1), .s3(RW_BOTHA1), .d2(I_DB[15]), .d3(iQB[15]), .clk(CLKB), .eq(and_n)); 
+   always @ ( posedge CLKB ) if ( RW_BOTHB2 ) begin mem2[I_AB]=I_DB[23:16]; #0; ->write_event; end
+   always @ ( vdd or I_AB or write_event ) iQB[23:16]=mem2[I_AB];
+   ds_SRAM_4096_32 (.q(I_QB[16]), .s1(I_CENB), .s2(RW_BOTHB2), .s3(RW_BOTHA2), .d2(I_DB[16]), .d3(iQB[16]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[17]), .s1(I_CENB), .s2(RW_BOTHB2), .s3(RW_BOTHA2), .d2(I_DB[17]), .d3(iQB[17]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[18]), .s1(I_CENB), .s2(RW_BOTHB2), .s3(RW_BOTHA2), .d2(I_DB[18]), .d3(iQB[18]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[19]), .s1(I_CENB), .s2(RW_BOTHB2), .s3(RW_BOTHA2), .d2(I_DB[19]), .d3(iQB[19]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[20]), .s1(I_CENB), .s2(RW_BOTHB2), .s3(RW_BOTHA2), .d2(I_DB[20]), .d3(iQB[20]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[21]), .s1(I_CENB), .s2(RW_BOTHB2), .s3(RW_BOTHA2), .d2(I_DB[21]), .d3(iQB[21]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[22]), .s1(I_CENB), .s2(RW_BOTHB2), .s3(RW_BOTHA2), .d2(I_DB[22]), .d3(iQB[22]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[23]), .s1(I_CENB), .s2(RW_BOTHB2), .s3(RW_BOTHA2), .d2(I_DB[23]), .d3(iQB[23]), .clk(CLKB), .eq(and_n)); 
+   always @ ( posedge CLKB ) if ( RW_BOTHB3 ) begin mem3[I_AB]=I_DB[31:24]; #0; ->write_event; end
+   always @ ( vdd or I_AB or write_event ) iQB[31:24]=mem3[I_AB];
+   ds_SRAM_4096_32 (.q(I_QB[24]), .s1(I_CENB), .s2(RW_BOTHB3), .s3(RW_BOTHA3), .d2(I_DB[24]), .d3(iQB[24]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[25]), .s1(I_CENB), .s2(RW_BOTHB3), .s3(RW_BOTHA3), .d2(I_DB[25]), .d3(iQB[25]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[26]), .s1(I_CENB), .s2(RW_BOTHB3), .s3(RW_BOTHA3), .d2(I_DB[26]), .d3(iQB[26]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[27]), .s1(I_CENB), .s2(RW_BOTHB3), .s3(RW_BOTHA3), .d2(I_DB[27]), .d3(iQB[27]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[28]), .s1(I_CENB), .s2(RW_BOTHB3), .s3(RW_BOTHA3), .d2(I_DB[28]), .d3(iQB[28]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[29]), .s1(I_CENB), .s2(RW_BOTHB3), .s3(RW_BOTHA3), .d2(I_DB[29]), .d3(iQB[29]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[30]), .s1(I_CENB), .s2(RW_BOTHB3), .s3(RW_BOTHA3), .d2(I_DB[30]), .d3(iQB[30]), .clk(CLKB), .eq(and_n)); 
+   ds_SRAM_4096_32 (.q(I_QB[31]), .s1(I_CENB), .s2(RW_BOTHB3), .s3(RW_BOTHA3), .d2(I_DB[31]), .d3(iQB[31]), .clk(CLKB), .eq(and_n)); 
+    assign QB[0]=I_QB[0];
+    assign QB[1]=I_QB[1];
+    assign QB[2]=I_QB[2];
+    assign QB[3]=I_QB[3];
+    assign QB[4]=I_QB[4];
+    assign QB[5]=I_QB[5];
+    assign QB[6]=I_QB[6];
+    assign QB[7]=I_QB[7];
+    assign QB[8]=I_QB[8];
+    assign QB[9]=I_QB[9];
+    assign QB[10]=I_QB[10];
+    assign QB[11]=I_QB[11];
+    assign QB[12]=I_QB[12];
+    assign QB[13]=I_QB[13];
+    assign QB[14]=I_QB[14];
+    assign QB[15]=I_QB[15];
+    assign QB[16]=I_QB[16];
+    assign QB[17]=I_QB[17];
+    assign QB[18]=I_QB[18];
+    assign QB[19]=I_QB[19];
+    assign QB[20]=I_QB[20];
+    assign QB[21]=I_QB[21];
+    assign QB[22]=I_QB[22];
+    assign QB[23]=I_QB[23];
+    assign QB[24]=I_QB[24];
+    assign QB[25]=I_QB[25];
+    assign QB[26]=I_QB[26];
+    assign QB[27]=I_QB[27];
+    assign QB[28]=I_QB[28];
+    assign QB[29]=I_QB[29];
+    assign QB[30]=I_QB[30];
+    assign QB[31]=I_QB[31];
+
+
+endmodule
+`endcelldefine
+`undef read_write
+`undef write_write
+`undef read_read

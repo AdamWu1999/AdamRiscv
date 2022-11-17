@@ -1,0 +1,12 @@
+#!/usr/bin/perl -w
+
+
+    system ("riscv32-unknown-elf-gcc  -static -Ttext 0x00000000 main.c -o main.elf");
+    system ("riscv32-unknown-elf-gcc  -c -static -Ttext 0x00000000 main.s -o main_s.o -march=rv32i -mabi=ilp32");
+	system ("riscv32-unknown-elf-objdump -S -l main.elf -M no-aliases,numeric >main.dump");
+	system ("riscv32-unknown-elf-objdump -S -l main_s.o -M no-aliases,numeric >main_s.dump");
+	system ("riscv32-unknown-elf-objcopy main.elf -O verilog main.verilog");
+	#system ("riscv32-unknown-elf-objcopy main_s.elf -O verilog main_s.verilog");
+	system ("riscv32-unknown-elf-objcopy main_s.o -O verilog main_s.verilog");
+	#system ("riscv32-unknown-elf-objcopy main.elf -O ihex main.hex");
+	#system ("sed -i '/@800/@000/g' main.verilog");
