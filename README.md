@@ -2,7 +2,9 @@
 
 # 简介
 
-兼容RV32I的标准五阶流水线CPU，主要参照《计算机组成与设计 硬件/软件接口 RISCV版》中的教程所设计。
+兼容RV32I的标准五阶流水线CPU，主要参照《计算机组成与设计 硬件/软件接口 RISCV版》中的教程所设计。项目网址：
+[AdamRiscV-Gitee](https://gitee.com/adam-wu1999/AdamRiscv);
+[AdamRiscV-Github](https://github.com/AdamWu1999/AdamRiscv)
 
 ---
 
