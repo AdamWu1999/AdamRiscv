@@ -13,7 +13,7 @@
 
 1. IROM、DATA_RAM从原先的异步读Memory更换为同步读Memory，提供三种Memory可选：MC_MACRO（memory compiler库，但功能仿真下暂不可用）* 、REG_ARRAY（手写单端SRAM）* 、BRAM IP。支持在FPGA中综合为BRAM而不会被综合成LUTRAM，大幅度改善资源与性能。此外，为了抵消换用同步读RAM所造成的读取延迟，修改了流水站中涉及Memory读取的部分设计。（*：来自芯王国CK_Riscv）
 2. 将原先设计中对Store指令的前递整合至EX阶段Rs2的前递中，增加针对Load(Rd)=Store(Rs2)的前递（即memory内数据复制的操作）。这么做是因为之前对书中的这段话理解有误。
-    ![Untitled](pic/Untitled.png)
+    ![LoadStoreForward](./pic/LoadStoreForward.png)
 3. 将寄存器的同步复位替换为异步复位，并增加异步复位同步释放模块。
 4. 增加了两个基于VCS+Verdi的自动化testbench。一个是修改自芯王国CK_Riscv的tb，可实现针对不同指令类型的测试；另一个是由v1.0版本中的tb进一步完善而来，实现对37条指令与程序相关性的综合测试，且新的tb可由Golden文本自动生成结果检测task。
 5. 增加了FPGA模式，该模式下使用BRAM IP实现memory并增加连接板卡的LED接口。在黑金AX7350板卡上实测通过，主频最高达110Mhz。
@@ -69,7 +69,7 @@
 
 硬件架构图如下（只显示主要模块与信号）：
 
-![Untitled](pic/Untitled%201.png)
+![hardware_frame](./pic/hardware_frame.png)
 
 ### 2.2 相关指标
 
@@ -79,7 +79,7 @@
 - 实现的特权态：M态
 - 实现的指令：RV32I中除了控制状态寄存器指令、fence、ecall等杂项指令外的其余37条指令
 
-    ![Untitled](pic/Untitled%202.png)
+    ![instructions](./pic/instructions.png)
 
 - **不支持非对齐地址**
 - 无分支预测，跳转发生后会flush流水站，产生两拍的空泡
@@ -100,11 +100,11 @@
 
 - scripts：scripts中存放着众多可在终端中联动多个工具的perl脚本，如regress、openverdi。这些脚本需要在工程根目录下source bashrc.env，source完即可在这个终端中直接将这些脚本当命令调用。
     
-    ![Untitled](pic/Untitled%203.png)
+    ![scripts](./pic/scripts.png)
     
 - verification：其中包含了testbench、cases、regress_fun三个部分
     
-    ![Untitled](pic/Untitled%204.png)
+    ![verification](./pic/verification.png)
     
 
 ### 3.3 魔改指南
@@ -137,19 +137,19 @@
 
 打开终端，进入comp_test文件夹运行`make COMP`就会自动编译。
 
-![Untitled](pic/Untitled%205.png)
+![make_COMP](./pic/make_COMP.png)
 
 再运行`make RUN`即可仿真。终端中会打印硬件运行情况与测试结果。显示“PASS”即为测试通过，否则会显示“FAIL”字样。
 
-![Untitled](pic/Untitled%206.png)
+![make_RUN1](./pic/make_RUN1.png)
 
-![Untitled](pic/Untitled%207.png)
+![make_RUN2](./pic/make_RUN2.png)
 
 若需开启Verdi，则在仿真的时候改用`make RUNV`即可。
 
-![Untitled](pic/Untitled%208.png)
+![make_RUNV1](./pic/make_RUNV1.png)
 
-![Untitled](pic/Untitled%209.png)
+![make_RUNV2](./pic/make_RUNV2.png)
 
 ## 5 FPGA模式
 
@@ -160,17 +160,17 @@
 1. 添加./fpga/FPGA_MODE.vh文件并将其设置为Global include，以开启FPGA模式
 2. 在IP Catalog中打开Clocking Wizard创建时钟IP，只需要in、out两个端口即可，确保部件名称与图中一致（clk_wiz_0）。输入的时钟频率根据自己的板卡来确定。输出的时钟频率不超过110Mhz（主要还是根据板卡自己调）。
 
-    ![Untitled](pic/Untitled%2010.png)
+    ![Clocking_Wizard](./pic/Clocking_Wizard.png)
 
 3. 在IP Catalog中打开Block Memory Generator创建两个BRAM IP，分别命名为INST_ROM、DATA_RAM。两个BRAM设置的参数均如下：
 
-    ![Untitled](pic/Untitled%2011.png)
+    ![BRAM_IP1](./pic/BRAM_IP1.png)
 
-    ![Untitled](pic/Untitled%2012.png)
+    ![BRAM_IP2](./pic/BRAM_IP2.png)
 
     对于INST_ROM，还需要额外设置初始化选项。先运行./rom/HexToCoe.py生成Coe文件，再在下图选项中添加Coe文件路径。勾选Fill Remaining Memory Location 并填写0，将空余的memory用0填充。
 
-    ![Untitled](pic/Untitled%2013.png)
+    ![BRAM_IP3](./pic/BRAM_IP3.png)
 
 4. 添加xdc约束文件，此文件需根据自己的板卡来编写
 5. 添加./fpga/tb_fpga.v，可进行FPGA模式下的仿真。（该模式不会自动由golden生成测试用例）
