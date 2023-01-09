@@ -48,7 +48,7 @@ alu u_alu(
     .br_mark  (br_mark       )
 );
 
-assign br_addr_op_A	   = (ex_br_addr_mode != `J_REG) ? ex_pc : (forwardA == `EX_MEM_A)? me_alu_o : (forwardA == `MEM_WB_A)? w_regs_data : ex_regs_data1;
+assign br_addr_op_A    = (ex_br_addr_mode != `J_REG) ? ex_pc : (forwardA == `EX_MEM_A)? me_alu_o : (forwardA == `MEM_WB_A)? w_regs_data : ex_regs_data1;
 assign br_pc           = br_addr_op_A + ex_imm;
 assign op_B            = (ex_alu_src2 == `PC_PLUS4)? 32'd4 : (ex_alu_src2 == `IMM)? ex_imm : op_B_pre;
 assign op_A            = (ex_alu_src1 == `NULL)? 32'd0 : (ex_alu_src1 == `PC)? ex_pc : op_A_pre;
