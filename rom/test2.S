@@ -39,8 +39,8 @@ es_j1:
 	bge x10, x11, es_j2 		# jump to es_j2
 es_j4:	
 	ori x12, x0, 0x3ff 			# x12 = 0x3ff
-
-	jalr x18,x8, 0xe7			# jump to 0xe8,es_j7,x18 = 80(next_inst's addr)
+	addi x8, x0, -3				# x8 = 0xffffffff
+	jalr x18,x8, 0xef			# jump to 0xec,es_j7,x18 = 0x84(next_inst's addr)
 	ori x13, x0, 0x2bc 			# shouldn't execute 
 
 	nop
@@ -80,7 +80,7 @@ es_j7:
 	lhu x23, 0(x0)				# x23 = 0xffef zero-extend test
 	ori x25, x0, -1				# x25 = 0xffffffff
 	addi x25, x25, 0xfffffffe	# x25 = 0xfffffffd
-	add x21, x8, x7				# x21 = 2
+	add x21, x7, x7				# x21 = 2
 	ori x24, x0, 0x7			# x24 = 7
 	beq x16,x11, last_test		#jump to last_test,(test the BRAM reading result in FPGA_MODAE)
 
